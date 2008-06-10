@@ -1,0 +1,26 @@
+
+Libraries and license information used within this solution are mentioned
+within this document.
+
+
+ObjectBuilder2
+--------------
+Homepage:   Unknown
+License:    Unknown (can't find project home), possibly MS-PL.
+Comment:    I'm not sure yet but this might be part of the Unity framework
+            now.
+
+
+Composite WPF (formerly Prism)
+------------------------------
+Homepage:   http://www.codeplex.com/unity
+License:    Ms-PL
+
+
+Unity
+-----
+Homepage:   http://www.codeplex.com/unity
+License:    Ms-PL
+
+
+
