@@ -39,11 +39,11 @@
     </Reference>
     <Reference Include="Prism, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Library\Prism.dll</HintPath>
+      <HintPath>..\..\..\lib\Prism.dll</HintPath>
     </Reference>
     <Reference Include="Prism.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Library\Prism.Interfaces.dll</HintPath>
+      <HintPath>..\..\..\lib\Prism.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
