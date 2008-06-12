@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "x_doc", "x_doc", "{AC7658A5-611F-452C-A197-4EF9705C5D36}"
+	ProjectSection(SolutionItems) = preProject
+		doc\Script.txt = doc\Script.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{E7E076A2-3F67-4038-ADB9-38ED6A891EE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{4D7E8E4C-25A0-46B2-B92B-FD047AB26634}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LateNight", "LateNight\LateNight.csproj", "{C750F841-9C5A-4624-B0C3-C37EE79F527C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LateNight.Infrastructure", "LateNight.Infrastructure\LateNight.Infrastructure.csproj", "{6B30593C-B386-4289-AC4E-08559A7E336C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C750F841-9C5A-4624-B0C3-C37EE79F527C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C750F841-9C5A-4624-B0C3-C37EE79F527C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C750F841-9C5A-4624-B0C3-C37EE79F527C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C750F841-9C5A-4624-B0C3-C37EE79F527C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B30593C-B386-4289-AC4E-08559A7E336C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B30593C-B386-4289-AC4E-08559A7E336C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B30593C-B386-4289-AC4E-08559A7E336C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B30593C-B386-4289-AC4E-08559A7E336C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C750F841-9C5A-4624-B0C3-C37EE79F527C} = {E7E076A2-3F67-4038-ADB9-38ED6A891EE2}
+		{6B30593C-B386-4289-AC4E-08559A7E336C} = {E7E076A2-3F67-4038-ADB9-38ED6A891EE2}
+	EndGlobalSection
+EndGlobal

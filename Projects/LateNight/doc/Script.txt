@@ -1,0 +1,25 @@
+
+This is a real rough script I'm using to develop the application, it will be
+the basis for how to create this demo in the future.
+
+Create base solution
+--------------------
+ 1. Create a new empty solution named 'LateNight'
+ 2. Create the following solutions folders
+     - Application
+     - Modules
+ 3. Create a WPF application Project named LateNight in "Application"
+    solution folder.
+ 4. Open Properties for LateNight and change default namespace to
+    BrettRyan.LateNight.
+ 5. Add an infrastructure project called "LateNight.Infrastructure" in
+    "Application" solution folder.
+ 6. Open properties for LateNight.Infrastructure and change default namespace to
+    "BrettRyan.LateNight.Infrastructure".
+ 7. Add a reference to LateNight.Infrastructure to the LateNight project.
+ 8. Delete default "Class1.cs" from LateNight.Infrastructure.
+ 9. Open properties for LateNight, navigate to the build tab and change the
+    output location to "..\Build\Debug" for the Debug build and
+    "..\Build\Release" for the release build.
+10. Perform step #7 for the LateNight.Infrastructure project.
+
