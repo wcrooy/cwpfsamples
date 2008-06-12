@@ -5,10 +5,18 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace LateNight {
+namespace BrettRyan.LateNight {
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application {
+
+        public App() {
+            LateNightBootstrapper bootStrapper = new LateNightBootstrapper();
+            bootStrapper.Run();
+        }
+
     }
+
 }

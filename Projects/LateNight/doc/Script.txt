@@ -6,8 +6,8 @@ Create base solution
 --------------------
  1. Create a new empty solution named 'LateNight'
  2. Create the following solutions folders
-     - Application
-     - Modules
+    - Application
+    - Modules
  3. Create a WPF application Project named LateNight in "Application"
     solution folder.
  4. Open Properties for LateNight and change default namespace to
@@ -22,4 +22,59 @@ Create base solution
     output location to "..\Build\Debug" for the Debug build and
     "..\Build\Release" for the release build.
 10. Perform step #7 for the LateNight.Infrastructure project.
+
+Make Application CAL (Composite Application Library?) Ready
+-----------------------------------------------------------
+ 1. Add the following library references to LateNight
+    - Microsoft.Practices.Composite
+    - Microsoft.Practices.Composite.UnityExtensions
+    - Microsoft.Practices.Composite.Wpf
+    - Microsoft.Practices.ObjectBuilder2
+    - Microsoft.Practices.Unity
+ 2. Remove default "Window1.xaml" and associated code behind file.
+ 3. Remove reference to "StartupUri" property in App.xaml
+ 4. Create a new WPF window called LateNightShell.xaml.
+ 5. Create a new class called LateNightBootstrapper.
+ 6. Add the following using statements.
+
+using System.Windows;
+using Microsoft.Practices.Composite.Modularity;
+using Microsoft.Practices.Composite.UnityExtensions;
+
+ 7. Alter the class signature to extend from "UnityBootstrapper".
+ 8. Right click "UnityBootstrapper" and choose "Implement Abstract Class".
+ 9. Replace the CreateShell() implementation with the following:
+ 
+    LateNightShell shell = Container.Resolve<LateNightShell>();
+    shell.Show();
+    return shell;
+
+10. Override the GetModuleEnumerator() method with the following implementation
+
+    ConfigurationStore store = new ConfigurationStore();
+    return new ConfigurationModuleEnumerator(store);
+
+    (NOTE:) this configures the module enumerator to use the implementation
+    that reads your application settings file (App.config).
+    
+11. Add a new application configuration file to LateNight (App.config).
+12. Open App.config and add the following inside the <configuration> tag:
+
+  <configSections>
+    <section name="modules"
+             type="Microsoft.Practices.Composite.Modularity.ModulesConfigurationSection, Microsoft.Practices.Composite"/>
+  </configSections>
+
+  <modules>
+  </modules>
+  
+13. Open App.xaml
+14. Change the namespace to the x:Class tag to be BrettRyan.LateNight.
+15. Open the App.xaml code behind file (App.xaml.cs).
+16. Alter the namespace to be "BrettRyan.LateNight".
+17. Add a default constrcutor (App()) with the following implementation:
+
+    LateNightBootstrapper bootStrapper = new LateNightBootstrapper();
+    bootStrapper.Run();
+
 
