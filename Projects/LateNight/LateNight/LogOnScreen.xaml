@@ -4,7 +4,11 @@
         Title="Late Night Log On"
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
-        MinWidth="300" MinHeight="190">
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        MinWidth="300"
+        BorderThickness="4"
+        AllowsTransparency="True">
     
     <Window.Resources>
         <Style TargetType="TextBox">
@@ -20,6 +24,13 @@
             <Setter Property="MinWidth" Value="75"/>
         </Style>
     </Window.Resources>
+    
+	<Window.BorderBrush>
+		<RadialGradientBrush>
+			<GradientStop Color="#FF404070" Offset="0"/>
+			<GradientStop Color="#55000000" Offset="1"/>
+		</RadialGradientBrush>
+	</Window.BorderBrush>
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -77,6 +88,8 @@
                HorizontalAlignment="Center"
                Foreground="Gray"
                FontStyle="Italic"
+               Visibility="{Binding HintVisibility}"
+               
                Content="Enter admin/pass for credentials"/>
 
         <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"

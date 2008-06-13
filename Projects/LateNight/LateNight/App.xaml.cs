@@ -21,6 +21,9 @@ namespace BrettRyan.LateNight {
         public App() {
             Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             LogOnScreen logon = new LogOnScreen();
+#if DEBUG
+            logon.HintVisible = true;
+#endif
             bool? res = logon.ShowDialog();
             if (!res ?? true) {
                 Shutdown(1);

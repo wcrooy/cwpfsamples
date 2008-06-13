@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -26,7 +27,9 @@ namespace BrettRyan.LateNight {
     /// <summary>
     /// Interaction logic for LogOnScreen.xaml
     /// </summary>
-    public partial class LogOnScreen : Window {
+    public partial class LogOnScreen : Window, INotifyPropertyChanged {
+
+        private Visibility hintVisibility;
 
         /// <summary>
         /// Creates a new instance of <c>LogOnScreen</c>.
@@ -34,6 +37,8 @@ namespace BrettRyan.LateNight {
         public LogOnScreen() {
             InitializeComponent();
 
+            DataContext = this;
+            HintVisibility = Visibility.Hidden;
             xUsername.Focus();
         }
 
@@ -56,6 +61,43 @@ namespace BrettRyan.LateNight {
             Close();
         }
 
+        public bool HintVisible {
+            get { return HintVisibility == Visibility.Visible; }
+            set {
+                if (value) {
+                    HintVisibility = Visibility.Visible;
+                } else {
+                    HintVisibility = Visibility.Hidden;
+                }
+            }
+        }
+
+        public Visibility HintVisibility {
+            get { return hintVisibility; }
+            set {
+                if (value != hintVisibility) {
+                    this.hintVisibility = value;
+                    OnPropertyChanged("HintVisibility");
+                }
+            }
+        }
+
+
+        #region INotifyPropertyChanged Members
+
+        private event PropertyChangedEventHandler propertyChangedEvent;
+
+        public event PropertyChangedEventHandler PropertyChanged {
+            add { propertyChangedEvent += value; }
+            remove { propertyChangedEvent -= value; }
+        }
+
+        protected void OnPropertyChanged(string prop) {
+            if (propertyChangedEvent != null)
+                propertyChangedEvent(this, new PropertyChangedEventArgs(prop));
+        }
+
+        #endregion
     }
 
 }
