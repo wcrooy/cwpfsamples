@@ -93,6 +93,7 @@
     <Compile Include="LateNightShell.xaml.cs">
       <DependentUpon>LateNightShell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LateNightShellModel.cs" />
     <Compile Include="LogOnScreen.xaml.cs">
       <DependentUpon>LogOnScreen.xaml</DependentUpon>
     </Compile>

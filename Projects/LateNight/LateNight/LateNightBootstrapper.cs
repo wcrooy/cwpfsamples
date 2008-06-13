@@ -15,6 +15,7 @@ using System.Windows;
 
 using Microsoft.Practices.Composite.Modularity;
 using Microsoft.Practices.Composite.UnityExtensions;
+using Microsoft.Practices.Unity;
 
 
 namespace BrettRyan.LateNight {
@@ -22,7 +23,7 @@ namespace BrettRyan.LateNight {
     /// <summary>
     ///
     /// </summary>
-    public class LateNightBootstrapper : UnityBootstrapper {
+    internal class LateNightBootstrapper : UnityBootstrapper {
 
         /// <summary>
         /// Creates a new instance of <c>LateNightBootstrapper</c>.
@@ -31,8 +32,28 @@ namespace BrettRyan.LateNight {
         }
 
 
+        /// <summary>
+        /// Configures the container.
+        /// </summary>
+        /// <remarks>
+        /// Currently this just registers global services required for the
+        /// application.
+        /// </remarks>
+        protected override void ConfigureContainer() {
+            RegisterServices();
+
+            base.ConfigureContainer();
+        }
+
+        private void RegisterServices() {
+            // This will register the type as a singleton instance.
+            Container.RegisterType<LateNightShellModel>(
+                new ContainerControlledLifetimeManager());
+        }
+
         protected override DependencyObject CreateShell() {
             LateNightShell shell = Container.Resolve<LateNightShell>();
+            shell.DataContext = Container.Resolve<LateNightShellModel>();
             shell.Show();
             return shell;
         }
