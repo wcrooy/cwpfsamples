@@ -5,6 +5,7 @@
     Title="Late Night" Width="640" Height="480"
     KeyDown="DoKeyDownHandler"
     KeyUp="DoKeyUpHandler"
+    ResizeMode="CanResizeWithGrip"
     >
 
     <DockPanel>
