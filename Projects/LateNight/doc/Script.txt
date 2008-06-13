@@ -2,6 +2,16 @@
 This is a real rough script I'm using to develop the application, it will be
 the basis for how to create this demo in the future.
 
+If you're following along and reading this, then please treat this as my rough
+notes and not what the final document is to become. Once this is fairly
+complete I will be rewriting it into a document with propper code snippets
+references and screen-shots where applicable.
+
+If you find any bugs in this document please let me know on the google code
+page by creating a new issue log.
+
+    http://code.google.com/p/cwpfsamples/
+
 
 Create base solution
 --------------------
@@ -238,5 +248,103 @@ code within the code-behind file only refers to UI elements and nothing more,
 It's purely "Eye Candy" type code which maybe your design tem may have
 implemented.
 
-(Optional) Make Versions Build Time Aware
------------------------------------------
+
+Create a Shell Model
+--------------------
+In order to make our shell more flexible and less coupled to our application we
+will add a Model to represent the shells data.
+
+ 1. Create a new class called LateNightShellModel
+ 2. Alter the class signature to extend from INotifyPropertyChanged and add
+    a using statement for System.ComponentModel.
+ 3. Add the following implementation for INotifyPropertyChanged:
+ 
+        #region INotifyPropertyChanged Members
+
+        private event PropertyChangedEventHandler propertyChangedEvent;
+
+        public event PropertyChangedEventHandler PropertyChanged {
+            add { propertyChangedEvent += value; }
+            remove { propertyChangedEvent -= value; }
+        }
+
+        protected void OnPropertyChanged(string prop) {
+            if (propertyChangedEvent != null)
+                propertyChangedEvent(this, new PropertyChangedEventArgs(prop));
+        }
+
+        #endregion
+
+ 4. Open LateNightBootstrapper.cs and override ConfigureContainer().
+ 5. Add a method call for "RegisterServices()" before the base call.
+ 6. Right click "RegisterServices()" and select "Generate Method Stub", replace
+    the default implementation with the following.
+
+        Container.RegisterType<LateNightShellModel>(
+            new ContainerControlledLifetimeManager());
+
+ 7. Alter the CreateShell() method to set the DataContext property of the
+    LateNightShell just after it has been created
+    
+        protected override DependencyObject CreateShell() {
+            LateNightShell shell = Container.Resolve<LateNightShell>();
+            shell.DataContext = Container.Resolve<LateNightShellModel>();
+            shell.Show();
+            return shell;
+        }
+ 
+
+(Optional) Add Version Text to Title
+------------------------------------
+ 1. Add a new class to LateNight.Infrastructure called "VersionHelper"
+ 2. Add contents of version helper
+    
+    [see source LateNight.Infrastructure/VersionHelper.cs]
+    
+ 3. Add a string property for ProductVersionText which fires property change
+    events.
+    
+        public string ProductVersionText {
+            get { return versionText; }
+            set {
+                if (!String.Equals(versionText, value)) {
+                    versionText = value;
+                    OnPropertyChanged("ProductVersionText");
+                }
+            }
+        }
+
+ 4. Set the version text in the constructor by placing the following code in
+    the constructor body.
+    
+        public LateNightShellModel() {
+            Version ver = VersionHelper.Version;
+            if (ver == null) {
+                versionText = String.Empty;
+            } else {
+#if DEBUG
+                //versionText = String.Format("v{0}.{1} (Build {2}, Revision {3})",
+                //    ver.Major, ver.Minor, ver.Build, ver.Revision);
+                versionText = String.Format("v{0}.{1} (Build {2})",
+                    ver.Major, ver.Minor,
+                    VersionHelper.GetBuildRevisionAsDateTime(ver));
+#else
+                versionText = String.Format("v{0}.{1}",
+                    ver.Major, ver.Minor);
+#endif
+            }
+        }
+
+ 6. Open LateNightShell.xaml and replace the content property for the second
+    label to the following.
+    
+    Content="{Binding ProductVersionText}"
+    
+ 7. If you run the application now you will see that the version text reads as
+    a date at the end of 1999. You now need to alter your version strings
+    within AsseblyInfo.cs for each project (this is only required for the
+    shell). Open each AssemblyInfo.cs file and replace the version strings as
+    follows:
+    
+        [assembly: AssemblyVersion("0.2.*")]
+        [assembly: AssemblyFileVersion("0.2.0.0")]
