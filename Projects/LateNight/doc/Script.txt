@@ -179,8 +179,8 @@ Create a Shell Layout
 <<<< LateNightShell.xaml
 
 
-Optional Make the Menu Auto-hide
---------------------------------
+(Optional) Make the Menu Auto-hide
+----------------------------------
 In order to make the menu in the application hide like in IE7, follow this
 procedure.
 
@@ -231,4 +231,10 @@ procedure.
                 xMainMenu.Visibility = Visibility.Collapsed;
             }
         }
+
+As a note I'd like to mention that this section shows the distinction between
+UI specific code and module/model/application code. Take note as to how the
+code within the code-behind file only refers to UI elements and nothing more,
+It's purely "Eye Candy" type code which maybe your design tem may have
+implemented.
 
