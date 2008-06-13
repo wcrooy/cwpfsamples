@@ -48,7 +48,7 @@
         <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
             <Label HorizontalAlignment="Stretch"
                    HorizontalContentAlignment="Center"
-                   Foreground="#FFC3C9E9"
+                   Foreground="#FFD3D9EE"
                    FontWeight="Normal"
                    FontSize="16"
                    FontFamily="Calibri"
@@ -77,11 +77,13 @@
                HorizontalAlignment="Right"
                Content="User Name"/>
         <TextBox Grid.Column="1" Grid.Row="1"
+                 GotFocus="DoCredentialsFocussed"
                  x:Name="xUsername"/>
         <Label Grid.Column="0" Grid.Row="2"
                HorizontalAlignment="Right"
                Content="Password"/>
         <PasswordBox Grid.Column="1" Grid.Row="2"
+                     GotFocus="DoCredentialsFocussed"
                      x:Name="xPassword" />
         
         <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
@@ -89,8 +91,7 @@
                Foreground="Gray"
                FontStyle="Italic"
                Visibility="{Binding HintVisibility}"
-               
-               Content="Enter admin/pass for credentials"/>
+               Content="Enter admin/pass as credentials"/>
 
         <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"
                     Orientation="Horizontal"
