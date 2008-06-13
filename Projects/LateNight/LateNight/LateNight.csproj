@@ -89,6 +89,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentController.cs" />
     <Compile Include="LateNightBootstrapper.cs" />
     <Compile Include="LateNightShell.xaml.cs">
       <DependentUpon>LateNightShell.xaml</DependentUpon>

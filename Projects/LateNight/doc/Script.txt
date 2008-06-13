@@ -348,3 +348,155 @@ will add a Model to represent the shells data.
     
         [assembly: AssemblyVersion("0.2.*")]
         [assembly: AssemblyFileVersion("0.2.0.0")]
+
+Create a Document Controller
+----------------------------
+Our application will be able to host documents where multiple documents can be
+opened at the same time. This is similar to the behaviour you find in Visual
+Studio. In order to do this we will use the bridge pattern to expose an
+interface within the Infrastructure project that allows modules to open/show
+and close/remove documents of any type, the shell will contain a concrete
+implementation of this service that will be responsible for exposing the
+documents do the main view.
+
+This could be thought of as a service, though there may be multiple instances
+of a document controller running in the application (under registered names),
+this allows different regions of the application to contain different
+documents, services are generally considered singletons. If you feel this is
+a service please let me know as I'm a bit undecided at the moment.
+
+AbstractDataModel comes from the DataModel-View-ViewModel sample by Dan
+Crevier. Please see his article on the topic, I have reservations for if an
+instance is created on a thread other than the UI thread then will it still
+work? http://blogs.msdn.com/dancre/archive/2006/07/23/676300.aspx.
+
+ 1. Add the following references to LateNight.Infrastructure
+ 
+        PresentationCore
+        PresentationFramework
+        WindowsBase
+
+ 2. Create an enum called ModelState in LateNight.Infrastructure with the
+    following implementation:
+    
+    public enum ModelState {
+        Fectching,
+        Invalid,
+        Active
+    }
+    
+ 3. Create a new base model class in the Infrastructure project as a base
+    implementation for all data models called AbstractDataModel.
+    
+    [see source LateNight.Infrastructure/AbstractDataModel.cs]
+ 
+ 4. Create a new abstract class in LateNight.Infrastructure called
+    AbstractDocument to represent all documents to be controlled.
+
+    public abstract class AbstractDocument : AbstractDataModel {
+        public abstract string DocumentTitle {
+            get;
+        }
+        public abstract UserControl View {
+            get;
+        }
+        public abstract string Description {
+            get;
+        }
+    }
+    
+ 5. Add the following using clause to AbstractDocument
+ 
+        using System.Windows.Controls;
+    
+ 6. Create a document controller interface in LateNight.Infrastructure called
+    IDocumentController.
+
+    public interface IDocumentController {
+        ObservableCollection<AbstractDocument> Documents {
+            get;
+        }
+        AbstractDocument CurrentDocument {
+            get; set;
+        }
+        void OpenDocument(AbstractDocument document);
+        void CloseDocument(AbstractDocument document);
+    }
+
+ 7. Add the following using clause to IDocumentController
+
+        using System.Collections.ObjectModel;
+
+ 8. Add a new folder to LateNight.Infrastructure called "Constants"
+ 
+ 9. Add a new static class to the folder with the following implementation.
+ 
+    public static class ControllerNames {
+        public const string DocumentController = "DocumentController";
+    }
+
+10. Create a new class in LateNight called DocumentController.
+ 
+    [see source LateNight/DocumentController.cs]
+ 
+11. Open LateNightBootstrapper.cs in LateNight and add the following using
+    clauses
+    
+    using BrettRyan.LateNight.Infrastructure;
+    using BrettRyan.LateNight.Infrastructure.Constants;
+
+12. Add the following to the RegisterServices method
+
+        Container.RegisterInstance<IDocumentController>(
+            ControllerNames.DocumentController, new DocumentController());
+
+13. Open LateNightShellModel and add the following using clauses
+
+        using Microsoft.Practices.Unity;
+        using BrettRyan.LateNight.Infrastructure;
+        using BrettRyan.LateNight.Infrastructure.Constants;
+        
+14. Alter the constructor signature to take an IUnityContainer paramater
+
+        public ShellModel(IUnityContainer container) {
+
+15. Add the following property.
+
+        public IDocumentController DocumentController {
+            get;
+            private set;
+        }
+
+16. Within the constructor add the following
+
+        DocumentController = container.Resolve<IDocumentController>(
+            ControllerNames.DocumentController);
+
+17. Add the following namespace tag to the Window element of
+    LateNightShell.xaml
+    
+        xmlns:inf="clr-namespace:BrettRyan.LateNight.Infrastructure;assembly=LateNight.Infrastructure"
+
+18. Add the following to the Window.Resources of LateNightShell.xaml
+
+        <DataTemplate x:Key="DocumentHeaderTemplate"
+                      DataType="{x:Type inf:AbstractDocument}">
+            <DockPanel ToolTip="{Binding Path=Description}">
+                <Label Padding="0" Content="{Binding Path=DocumentTitle}"
+                       VerticalAlignment="Center" />
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="DocumentContentTemplate">
+            <ContentControl Content="{Binding Path=View}"/>
+        </DataTemplate>
+
+        <CollectionViewSource x:Key="DocumentSource"
+                              Source="{Binding DocumentController.Documents}"/>
+
+19. Add the following tags to the second tab control in LateNightShell.xaml
+
+        ItemsSource="{Binding Source={StaticResource DocumentSource}}"
+        ItemTemplate="{StaticResource DocumentHeaderTemplate}"
+        ContentTemplate="{StaticResource DocumentContentTemplate}"
+        SelectedItem="{Binding Path=DocumentController.CurrentDocument}"
+

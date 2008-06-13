@@ -17,6 +17,9 @@ using Microsoft.Practices.Composite.Modularity;
 using Microsoft.Practices.Composite.UnityExtensions;
 using Microsoft.Practices.Unity;
 
+using BrettRyan.LateNight.Infrastructure;
+using BrettRyan.LateNight.Infrastructure.Constants;
+
 
 namespace BrettRyan.LateNight {
 
@@ -49,6 +52,9 @@ namespace BrettRyan.LateNight {
             // This will register the type as a singleton instance.
             Container.RegisterType<LateNightShellModel>(
                 new ContainerControlledLifetimeManager());
+
+            Container.RegisterInstance<IDocumentController>(
+                ControllerNames.DocumentController, new DocumentController());
         }
 
         protected override DependencyObject CreateShell() {

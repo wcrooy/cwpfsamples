@@ -1,7 +1,7 @@
 ﻿/*
  * VersionHelper.cs    6/14/2008 4:14:13 AM
  *
- * Copyright Brett Ryan. All rights reserved.
+ * Copyright 2008 Brett Ryan. All rights reserved.
  * Use is subject to license terms.
  *
  * Author: Brett Ryan

@@ -1,5 +1,5 @@
 ﻿/*
- * LateNightShellModel.cs    6/14/2008 4:20:27 AM
+ * AstractDataModel.cs    6/14/2008 5:45:54 AM
  *
  * Copyright 2008 Brett Ryan. All rights reserved.
  * Use is subject to license terms.
@@ -10,67 +10,55 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
-
-using Microsoft.Practices.Unity;
-
-using BrettRyan.LateNight.Infrastructure;
-using BrettRyan.LateNight.Infrastructure.Constants;
+using System.Windows.Threading;
 
 
-namespace BrettRyan.LateNight {
+namespace BrettRyan.LateNight.Infrastructure {
 
     /// <summary>
-    /// Model used for the main visual component (UI).
+    ///
     /// </summary>
-    internal sealed class LateNightShellModel : INotifyPropertyChanged {
+    /// <remarks>
+    /// This is based on the DataModel-View-ViewModel sample by Dan Crevier
+    /// (<see cref="http://blogs.msdn.com/dancre/archive/2006/07/23/676300.aspx"/>)
+    /// </remarks>
+    public abstract class AbstractDataModel : INotifyPropertyChanged {
 
-        private string versionText;
+        private ModelState state;
 
         /// <summary>
-        /// Creates a new instance of <c>LateNightShellModel</c>.
+        /// Creates a new instance of <c>DataModel</c>.
         /// </summary>
-        public LateNightShellModel(IUnityContainer container) {
-            DocumentController = container.Resolve<IDocumentController>(
-                ControllerNames.DocumentController);
-
-            Version ver = VersionHelper.Version;
-            if (ver == null) {
-                versionText = String.Empty;
-            } else {
-#if DEBUG
-                //versionText = String.Format("v{0}.{1} (Build {2}, Revision {3})",
-                //    ver.Major, ver.Minor, ver.Build, ver.Revision);
-                versionText = String.Format("v{0}.{1} (Build {2})",
-                    ver.Major, ver.Minor,
-                    VersionHelper.GetBuildRevisionAsDateTime(ver));
-#else
-                versionText = String.Format("v{0}.{1}",
-                    ver.Major, ver.Minor);
-#endif
-            }
+        public AbstractDataModel() {
+            Dispatcher = Dispatcher.CurrentDispatcher;
         }
 
-        /// <summary>
-        /// Returns the current instance of the document controller.
-        /// </summary>
-        public IDocumentController DocumentController {
+        protected Dispatcher Dispatcher {
             get;
             private set;
         }
 
-        /// <summary>
-        /// Used by the UI to get the current version number text.
-        /// </summary>
-        public string ProductVersionText {
-            get { return versionText; }
+        public ModelState State {
+            get {
+                VerifyCalledOnUIThread();
+                return state;
+            }
             set {
-                if (!String.Equals(versionText, value)) {
-                    versionText = value;
-                    OnPropertyChanged("ProductVersionText");
+                VerifyCalledOnUIThread();
+                if (value != state) {
+                    state = value;
+                    OnPropertyChanged("State");
                 }
             }
+        }
+
+        [Conditional("Debug")]
+        protected void VerifyCalledOnUIThread() {
+            Debug.Assert(Dispatcher.CurrentDispatcher == this.Dispatcher,
+                "Call must be made on UI thread.");
         }
 
         #region System.Object overrides.
@@ -82,11 +70,11 @@ namespace BrettRyan.LateNight {
         /// <returns>true if this object is equal to <c>obj</c>.</returns>
         public override bool Equals(object obj) {
             //if (obj != null && obj.GetType().Equals(this.GetType())) {
-            //    LateNightShellModel other = obj as LateNightShellModel;
+            //    DataModel other = obj as DataModel;
             //    if ((object)other != null) {
             //        //TODO: Add Equals implementation
             //        // Uncomment the following only if an
-            //        // Equals(LateNightShellModel) implementation is present.
+            //        // Equals(DataModel) implementation is present.
             //        //return Equals(other);
             //    }
             //}
@@ -94,19 +82,19 @@ namespace BrettRyan.LateNight {
             return base.Equals(obj);
         }
 
-        #region Equals(LateNightShellModel) implementation
+        #region Equals(DataModel) implementation
         ///// <summary>
         ///// Returns true if this object is equal to <c>obj</c>.
         ///// </summary>
         ///// <remarks>
         ///// This is an overloaded Equals implementation taking a
-        ///// LateNightShellModel object to improve performance as a cast is not
+        ///// DataModel object to improve performance as a cast is not
         ///// required.
         ///// </remarks>
         ///// <param name="other">
-        ///// LateNightShellModel object to compare against.
+        ///// DataModel object to compare against.
         ///// </param>
-        //public bool Equals(LateNightShellModel other) {
+        //public bool Equals(DataModel other) {
         //    //TODO: Add Equals implementation
         //    return base.Equals(other);
         //}
@@ -160,11 +148,18 @@ namespace BrettRyan.LateNight {
         private event PropertyChangedEventHandler propertyChangedEvent;
 
         public event PropertyChangedEventHandler PropertyChanged {
-            add { propertyChangedEvent += value; }
-            remove { propertyChangedEvent -= value; }
+            add {
+                VerifyCalledOnUIThread();
+                propertyChangedEvent += value;
+            }
+            remove {
+                VerifyCalledOnUIThread();
+                propertyChangedEvent -= value;
+            }
         }
 
-        private void OnPropertyChanged(string prop) {
+        protected void OnPropertyChanged(string prop) {
+            VerifyCalledOnUIThread();
             if (propertyChangedEvent != null)
                 propertyChangedEvent(this, new PropertyChangedEventArgs(prop));
         }
