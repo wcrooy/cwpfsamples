@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Controls;
+using System.Windows;
 
 
 namespace BrettRyan.LateNight.Infrastructure {
@@ -39,7 +39,7 @@ namespace BrettRyan.LateNight.Infrastructure {
         /// Will become the content control for the document within a WPF
         /// environment.
         /// </remarks>
-        public abstract UserControl View {
+        public abstract FrameworkElement View {
             get;
         }
 

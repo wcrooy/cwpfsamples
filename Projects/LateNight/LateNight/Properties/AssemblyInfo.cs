@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LateNight")]
+[assembly: AssemblyTitle("Late Night")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("John Sands (Australia) Ltd.")]
-[assembly: AssemblyProduct("LateNight")]
-[assembly: AssemblyCopyright("Copyright © John Sands (Australia) Ltd. 2008")]
+[assembly: AssemblyCompany("Brett Ryan")]
+[assembly: AssemblyProduct("Late Night")]
+[assembly: AssemblyCopyright("Copyright © Brett Ryan 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -53,3 +53,4 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.2.*")]
 [assembly: AssemblyFileVersion("0.2.0.0")]
+[assembly: NeutralResourcesLanguageAttribute("en-AU")]

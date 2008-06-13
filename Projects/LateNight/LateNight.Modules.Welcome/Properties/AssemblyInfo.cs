@@ -1,5 +1,5 @@
 ﻿/*
- * AssemblyInfo.cs    6/13/2008 4:23:00 AM
+ * AssemblyInfo.cs    6/14/2008 6:43:16 AM
  *
  * Copyright 2008 Brett Ryan. All rights reserved.
  * Use is subject to license terms
@@ -16,12 +16,12 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Late Night - Infrastructure")]
+[assembly: AssemblyTitle("Late Night - Welcome Module")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Brett Ryan")]
 [assembly: AssemblyProduct("Late Night")]
-[assembly: AssemblyCopyright("Copyright © Brett Ryan 2008")]
+[assembly: AssemblyCopyright("Copyright © Brett Ryan. 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,7 +31,7 @@ using System.Resources;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3357188b-a8a6-41a9-a3a2-1e4d1e7d62f1")]
+[assembly: Guid("af7dc5e0-6b8a-420d-ada8-34c7fd882d17")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -40,6 +40,6 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.2.*")]
-[assembly: AssemblyFileVersion("0.2.0.0")]
+[assembly: AssemblyVersion("0.1.*")]
+[assembly: AssemblyFileVersion("0.1.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en-AU")]

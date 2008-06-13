@@ -397,7 +397,7 @@ work? http://blogs.msdn.com/dancre/archive/2006/07/23/676300.aspx.
         public abstract string DocumentTitle {
             get;
         }
-        public abstract UserControl View {
+        public abstract FrameworkElement View {
             get;
         }
         public abstract string Description {
@@ -407,7 +407,7 @@ work? http://blogs.msdn.com/dancre/archive/2006/07/23/676300.aspx.
     
  5. Add the following using clause to AbstractDocument
  
-        using System.Windows.Controls;
+        using System.Windows;
     
  6. Create a document controller interface in LateNight.Infrastructure called
     IDocumentController.
@@ -499,4 +499,107 @@ work? http://blogs.msdn.com/dancre/archive/2006/07/23/676300.aspx.
         ItemTemplate="{StaticResource DocumentHeaderTemplate}"
         ContentTemplate="{StaticResource DocumentContentTemplate}"
         SelectedItem="{Binding Path=DocumentController.CurrentDocument}"
+
+
+Create a Welcome Module
+-----------------------
+Our application is now ready and able to manage documents from modules, we
+will now create a new Welcome module that will show a welcome screen in the
+document area of the application on startup.
+
+ 1. Add a new class library project called LateNight.Modules.Welcome
+    to the "Modules" folder.
+ 2. Alter the default namespace to begin with "BrettRyan." and remove the
+    default Class1.cs.
+ 3. Set the output location to ..\Build\Debug\ for DEBUG and ..\Build\Release\
+    for RELEASE.
+ 3. Add a reference to the following libraries
+ 
+        PresentationCore
+        PresentationFramework
+        WindowsBase
+        
+ 4. Add the following Composite WPF references
+ 
+        Microsoft.Practices.Composite
+        Microsoft.Practices.Unity
+        Microsoft.Practices.Unity.ObjectBuilder
+
+ 5. Add a project reference to LateNight.Infrastructure
+ 
+ 6. Add a new class called WelcomeModel.cs
+ 
+        [see source LateNight.Modules.Welcome/WelcomeModel.cs]
+ 
+ 7. Add a new UserControl called WelcomeView to the module solution with the
+    following content
+    
+<UserControl x:Class="BrettRyan.LateNight.Modules.Welcome.WelcomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel>
+        <CheckBox DockPanel.Dock="Bottom"
+                  IsChecked="{Binding Path=ShowOnStartup}"
+                  FlowDirection="RightToLeft"
+                  HorizontalAlignment="Right"
+                  Content="Show on application startup"/>
+        <StackPanel>
+            <TextBlock TextWrapping="Wrap" Padding="5">
+                <Run Text="Welcome to Late Night!" FontSize="14" FontWeight="Bold"/>
+                <LineBreak/>
+                <Run>
+                    Late Night is a trial application used to explore the
+                    possibilities of the "Composite WPF" framework (formerly
+                    Prism) form the Microsoft Patterns and Practices team.
+                </Run>
+                <LineBreak/><LineBreak/>
+                <Run>You can find out more on the Composite WPF framework at</Run>
+                <Hyperlink>http://www.codeplex.com/CompositeWPF</Hyperlink>.
+                
+                <LineBreak/><LineBreak/>
+                <Run>
+                    You can find out more on the this sample and more at the
+                    Composite WPF samples project page.
+                </Run>
+                <Hyperlink>http://code.google.com/p/cwpfsamples/</Hyperlink>.
+                
+            </TextBlock>
+        </StackPanel>
+    </DockPanel>
+</UserControl>
+
+ 8. Create a new class called WelcomeModule.cs
+ 
+ 9. Add the following using clauses.
+ 
+        using Microsoft.Practices.Composite.Modularity;
+        using Microsoft.Practices.Unity;
+
+        using BrettRyan.LateNight.Infrastructure;
+ 
+10. Add the following implementation for WelcomeModule
+ 
+        private readonly IDocumentController documentController;
+        private readonly IUnityContainer container;
+
+        /// <summary>
+        /// Creates a new instance of <c>WelcomeModule</c>.
+        /// </summary>
+        public WelcomeModule(IUnityContainer container) {
+            this.container = container;
+            documentController = container.Resolve<IDocumentController>(
+                ControllerNames.DocumentController);
+        }
+
+        #region IModule Members
+        public void Initialize() {
+            documentController.OpenDocument(new WelcomeModel());
+        }
+        #endregion
+
+11. Add the following to the modules section of the LateNight App.config file.
+
+        <module assemblyFile="LateNight.Modules.Welcome.dll"
+                moduleType="BrettRyan.LateNight.Modules.Welcome.WelcomeModule"
+                moduleName="WelcomeModule"/>
 

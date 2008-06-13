@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="BrettRyan.LateNight.Modules.Welcome.WelcomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel>
+        <CheckBox DockPanel.Dock="Bottom"
+                  IsChecked="True"
+                  FlowDirection="RightToLeft"
+                  HorizontalAlignment="Right"
+                  Content="Show on application startup"/>
+        <StackPanel>
+            <TextBlock TextWrapping="Wrap" Padding="5">
+                <Run Text="Welcome to Late Night!" FontSize="14" FontWeight="Bold"/>
+                <LineBreak/>
+                <Run>
+                    Late Night is a trial application used to explore the
+                    possibilities of the "Composite WPF" framework (formerly
+                    Prism) form the Microsoft Patterns and Practices team.
+                </Run>
+                <LineBreak/><LineBreak/>
+                <Run>You can find out more on the Composite WPF framework at</Run>
+                <Hyperlink>http://www.codeplex.com/CompositeWPF</Hyperlink>.
+                
+                <LineBreak/><LineBreak/>
+                <Run>
+                    You can find out more on the this sample and more at the
+                    Composite WPF samples project page.
+                </Run>
+                <Hyperlink>http://code.google.com/p/cwpfsamples/</Hyperlink>.
+                
+            </TextBlock>
+        </StackPanel>
+    </DockPanel>
+</UserControl>
