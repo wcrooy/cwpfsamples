@@ -2,6 +2,7 @@
 This is a real rough script I'm using to develop the application, it will be
 the basis for how to create this demo in the future.
 
+
 Create base solution
 --------------------
  1. Create a new empty solution named 'LateNight'
@@ -22,6 +23,7 @@ Create base solution
     output location to "..\Build\Debug" for the Debug build and
     "..\Build\Release" for the release build.
 10. Perform step #7 for the LateNight.Infrastructure project.
+
 
 Make Application CAL (Composite Application Library?) Ready
 -----------------------------------------------------------
@@ -76,6 +78,7 @@ using Microsoft.Practices.Composite.UnityExtensions;
 
     LateNightBootstrapper bootStrapper = new LateNightBootstrapper();
     bootStrapper.Run();
+
 
 Create a Shell Layout
 ---------------------
@@ -174,4 +177,58 @@ Create a Shell Layout
 
 </Window>
 <<<< LateNightShell.xaml
+
+
+Optional Make the Menu Auto-hide
+--------------------------------
+In order to make the menu in the application hide like in IE7, follow this
+procedure.
+
+* TODO: Code isn't perfect just yet.
+
+ 1. Open LateNightShell.xaml view and add the following tags to the "Window"
+    element.
+    
+    KeyDown="DoKeyDownHandler"
+    KeyUp="DoKeyUpHandler"
+    
+ 2. Give the <Menu> element a name of 'xMainMenu', set the initial Visibility
+    to Collapsed and add an event handler for 'IsKeyboardFocusWithinChanged'.
+ 
+    <Menu x:Name="xMainMenu" Visibility="Collapsed"
+          IsKeyboardFocusWithinChanged="DoMenuLostFocus">
+
+ 3. Open the shells code-behind file (LateNightShell.xaml.cs) and add the
+    following event handler implementations.
+    
+        private void DoKeyDownHandler(object sender, KeyEventArgs e) {
+            if (!xMainMenu.HasItems) {
+                return;
+            }
+            if (xMainMenu.Visibility == Visibility.Visible) {
+                return;
+            }
+            if ((e.KeyboardDevice.Modifiers & ModifierKeys.Alt) == ModifierKeys.Alt) {
+                xMainMenu.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void DoKeyUpHandler(object sender, KeyEventArgs e) {
+            if (xMainMenu.IsKeyboardFocusWithin) {
+                return;
+            }
+            if ((e.KeyboardDevice.Modifiers & ModifierKeys.Alt) == ModifierKeys.Alt) {
+                return;
+            }
+            xMainMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void DoMenuLostFocus(object sender, DependencyPropertyChangedEventArgs e) {
+            if (!xMainMenu.IsKeyboardFocusWithin) {
+                if (xMainMenu.Visibility != Visibility.Visible) {
+                    return;
+                }
+                xMainMenu.Visibility = Visibility.Collapsed;
+            }
+        }
 

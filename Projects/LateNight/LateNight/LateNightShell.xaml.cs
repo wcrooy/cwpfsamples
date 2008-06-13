@@ -35,6 +35,37 @@ namespace BrettRyan.LateNight {
             InitializeComponent();
         }
 
+        private void DoKeyDownHandler(object sender, KeyEventArgs e) {
+            if (!xMainMenu.HasItems) {
+                return;
+            }
+            if (xMainMenu.Visibility == Visibility.Visible) {
+                return;
+            }
+            if ((e.KeyboardDevice.Modifiers & ModifierKeys.Alt) == ModifierKeys.Alt) {
+                xMainMenu.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void DoKeyUpHandler(object sender, KeyEventArgs e) {
+            if (xMainMenu.IsKeyboardFocusWithin) {
+                return;
+            }
+            if ((e.KeyboardDevice.Modifiers & ModifierKeys.Alt) == ModifierKeys.Alt) {
+                return;
+            }
+            xMainMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void DoMenuLostFocus(object sender, DependencyPropertyChangedEventArgs e) {
+            if (!xMainMenu.IsKeyboardFocusWithin) {
+                if (xMainMenu.Visibility != Visibility.Visible) {
+                    return;
+                }
+                xMainMenu.Visibility = Visibility.Collapsed;
+            }
+        }
+
     }
 
 }

@@ -2,7 +2,10 @@
     x:Class="BrettRyan.LateNight.LateNightShell"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Late Night" Width="640" Height="480">
+    Title="Late Night" Width="640" Height="480"
+    KeyDown="DoKeyDownHandler"
+    KeyUp="DoKeyUpHandler"
+    >
 
     <DockPanel>
         <StackPanel DockPanel.Dock="Top">
@@ -27,7 +30,8 @@
                        FontFamily="Calibri"
                        Content="v0.1"/>
             </StackPanel>
-            <Menu>
+            <Menu x:Name="xMainMenu" Visibility="Collapsed"
+                  IsKeyboardFocusWithinChanged="DoMenuLostFocus">
                 <MenuItem Header="_File">
                     <MenuItem Header="E_xit"/>
                 </MenuItem>
