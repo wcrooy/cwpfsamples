@@ -238,3 +238,5 @@ code within the code-behind file only refers to UI elements and nothing more,
 It's purely "Eye Candy" type code which maybe your design tem may have
 implemented.
 
+(Optional) Make Versions Build Time Aware
+-----------------------------------------

@@ -33,23 +33,27 @@ namespace BrettRyan.LateNight {
         /// </summary>
         public LogOnScreen() {
             InitializeComponent();
+
+            xUsername.Focus();
         }
 
+        /// <summary>
+        /// Returns the username entered within the UI.
+        /// </summary>
         public string UserName {
             get { return xUsername.Text; }
         }
 
+        /// <summary>
+        /// Returns the password entered within the UI.
+        /// </summary>
         public string Password {
             get { return xPassword.Password; }
         }
 
         private void DoLogonClick(object sender, RoutedEventArgs e) {
-            this.DialogResult = true;
-            this.Close();
-        }
-
-        private void DoCancelClick(object sender, RoutedEventArgs e) {
-            this.Close();
+            DialogResult = true;
+            Close();
         }
 
     }

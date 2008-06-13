@@ -22,10 +22,10 @@ namespace BrettRyan.LateNight {
             Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             LogOnScreen logon = new LogOnScreen();
             bool? res = logon.ShowDialog();
-            //Application.Current.MainWindow = null;
-            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
-            MessageBox.Show(Application.Current.MainWindow.ToString());
-            if (res.HasValue && res.Value && Authenticate(logon.UserName, logon.Password)) {
+            if (!res ?? true) {
+                Shutdown(1);
+            } else if (Authenticate(logon.UserName, logon.Password)) {
+                Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
                 LateNightBootstrapper bootStrapper = new LateNightBootstrapper();
                 bootStrapper.Run();
             } else {
@@ -34,7 +34,7 @@ namespace BrettRyan.LateNight {
                     "Application Exit",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
-                Application.Current.Shutdown(1);
+                Shutdown(1);
             }
         }
 
