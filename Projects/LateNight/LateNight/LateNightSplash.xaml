@@ -70,6 +70,7 @@
                Content="{Binding Message}"/>
         <ProgressBar Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
                      Height="20"
+                     IsIndeterminate="True"
                      />
     </Grid>
 </Window>
