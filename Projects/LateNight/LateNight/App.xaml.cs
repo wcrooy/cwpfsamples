@@ -46,8 +46,6 @@ namespace BrettRyan.LateNight {
             splash.Show();
             Application.Current.MainWindow = null;
 
-            //System.ComponentModel.BackgroundWorker
-
             Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
             LateNightBootstrapper bootStrapper = new LateNightBootstrapper();
             bootStrapper.Run();
