@@ -95,6 +95,10 @@
       <DependentUpon>LateNightShell.xaml</DependentUpon>
     </Compile>
     <Compile Include="LateNightShellModel.cs" />
+    <Compile Include="LateNightSplash.xaml.cs">
+      <DependentUpon>LateNightSplash.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LateNightSplashModel.cs" />
     <Compile Include="LogOnScreen.xaml.cs">
       <DependentUpon>LogOnScreen.xaml</DependentUpon>
     </Compile>
@@ -111,6 +115,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Services\SplashService.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -131,6 +136,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="LateNightShell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LateNightSplash.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -33,8 +33,7 @@ namespace BrettRyan.LateNight {
         /// </summary>
         public LateNightBootstrapper() {
         }
-
-
+        
         /// <summary>
         /// Configures the container.
         /// </summary>

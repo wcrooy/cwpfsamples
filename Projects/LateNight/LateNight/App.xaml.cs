@@ -28,9 +28,7 @@ namespace BrettRyan.LateNight {
             if (!res ?? true) {
                 Shutdown(1);
             } else if (Authenticate(logon.UserName, logon.Password)) {
-                Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
-                LateNightBootstrapper bootStrapper = new LateNightBootstrapper();
-                bootStrapper.Run();
+                StartupContainer();
             } else {
                 MessageBox.Show(
                     "Application is exiting due to invalid credentials",
@@ -41,6 +39,23 @@ namespace BrettRyan.LateNight {
             }
         }
 
+        private void StartupContainer() {
+            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            LateNightSplash splash = new LateNightSplash();
+            splash.DataContext = new LateNightSplashModel();
+            splash.Show();
+            Application.Current.MainWindow = null;
+
+            //System.ComponentModel.BackgroundWorker
+
+            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            LateNightBootstrapper bootStrapper = new LateNightBootstrapper();
+            bootStrapper.Run();
+
+            splash.Close();
+        }
+
+        
     }
 
 }
