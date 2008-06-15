@@ -35,7 +35,7 @@ namespace BrettRyan.LateNight {
         public LateNightShellModel(IUnityContainer container) {
             this.container = container;
 
-            ShowHelpCommand = new DelegateCommand<object>(DoShowHelpExecuted);
+            ShowAboutCommand = new DelegateCommand<object>(DoShowAboutExecuted);
             ExitApplicationCommand = new DelegateCommand<object>(DoExitApplicationExecuted);
 
             DocumentController = container.Resolve<IDocumentController>(
@@ -53,7 +53,7 @@ namespace BrettRyan.LateNight {
         /// <summary>
         /// Command which will open a line-plan as a line-plan editor
         /// </summary>
-        public DelegateCommand<object> ShowHelpCommand {
+        public DelegateCommand<object> ShowAboutCommand {
             get;
             private set;
         }
@@ -63,10 +63,10 @@ namespace BrettRyan.LateNight {
             private set;
         }
 
-        private void DoShowHelpExecuted(object param) {
+        private void DoShowAboutExecuted(object param) {
             LateNightAboutView about = new LateNightAboutView();
             about.Owner = App.Current.MainWindow;
-            about.DataContext = container.Resolve<LateNightAboutModel>();
+            about.DataContext = new LateNightAboutModel(container);
             about.ShowDialog();
         }
 
