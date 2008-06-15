@@ -36,6 +36,8 @@ namespace BrettRyan.LateNight {
         public LateNightAboutView() {
             InitializeComponent();
 
+            xBorderModuleInfo.BorderBrush = xListModuleInfos.BorderBrush;
+            xBorderModuleInfo.BorderThickness = xListModuleInfos.BorderThickness;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
