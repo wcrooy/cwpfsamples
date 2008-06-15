@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -21,9 +22,10 @@ namespace BrettRyan.LateNight {
     /// <summary>
     ///
     /// </summary>
-    public class LateNightAboutModel {
+    public class LateNightAboutModel : INotifyPropertyChanged {
 
         private ModuleInfo[] moduleInfos;
+        private ModuleInfo selectedInfo;
 
         /// <summary>
         /// Creates a new instance of <c>LateNightAboutModel</c>.
@@ -38,8 +40,13 @@ namespace BrettRyan.LateNight {
         }
 
         public ModuleInfo SelectedInfo {
-            get;
-            set;
+            get { return selectedInfo; }
+            set {
+                if (!Object.Equals(selectedInfo, value)) {
+                    selectedInfo = value;
+                    OnPropertyChanged("SelectedInfo");
+                }
+            }
         }
 
         #region System.Object overrides.
@@ -119,6 +126,22 @@ namespace BrettRyan.LateNight {
             //    + "]"
             //    ;
             return base.ToString();
+        }
+
+        #endregion
+
+        #region INotifyPropertyChanged Members
+
+        private event PropertyChangedEventHandler propertyChangedEvent;
+
+        public event PropertyChangedEventHandler PropertyChanged {
+            add { propertyChangedEvent += value; }
+            remove { propertyChangedEvent -= value; }
+        }
+
+        protected void OnPropertyChanged(string prop) {
+            if (propertyChangedEvent != null)
+                propertyChangedEvent(this, new PropertyChangedEventArgs(prop));
         }
 
         #endregion
