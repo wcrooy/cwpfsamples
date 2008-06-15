@@ -54,8 +54,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractDataModel.cs" />
     <Compile Include="AbstractDocument.cs" />
-    <Compile Include="AstractDataModel.cs" />
     <Compile Include="Constants\ControllerNames.cs" />
     <Compile Include="IDocumentController.cs" />
     <Compile Include="ModelState.cs" />
