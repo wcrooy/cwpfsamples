@@ -1,77 +1,45 @@
 ﻿/*
- * LateNightShellModel.cs    6/14/2008 4:20:27 AM
+ * LateNightAboutModel.cs    6/15/2008 7:12:09 PM
  *
- * Copyright 2008 Brett Ryan. All rights reserved.
- * Use is subject to license terms.
+ * Copyright 2008 John Sands (Australia) Ltd. All rights reserved.
+ * Use is subject to license terms
  *
  * Author: Brett Ryan
  */
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-using Microsoft.Practices.Composite.Wpf.Commands;
+using Microsoft.Practices.Composite.Modularity;
 using Microsoft.Practices.Unity;
-
-using BrettRyan.LateNight.Infrastructure;
-using BrettRyan.LateNight.Infrastructure.Constants;
 
 
 namespace BrettRyan.LateNight {
 
     /// <summary>
-    /// Model used for the main visual component (UI).
+    ///
     /// </summary>
-    internal sealed class LateNightShellModel : INotifyPropertyChanged {
+    public class LateNightAboutModel {
 
-        private IUnityContainer container;
-
-        /// <summary>
-        /// Creates a new instance of <c>LateNightShellModel</c>.
-        /// </summary>
-        public LateNightShellModel(IUnityContainer container) {
-            this.container = container;
-
-            ShowHelpCommand = new DelegateCommand<object>(DoShowHelpExecuted);
-            ExitApplicationCommand = new DelegateCommand<object>(DoExitApplicationExecuted);
-
-            DocumentController = container.Resolve<IDocumentController>(
-                ControllerNames.DocumentController);
-        }
+        private ModuleInfo[] moduleInfos;
 
         /// <summary>
-        /// Returns the current instance of the document controller.
+        /// Creates a new instance of <c>LateNightAboutModel</c>.
         /// </summary>
-        public IDocumentController DocumentController {
+        public LateNightAboutModel(IUnityContainer container) {
+            IModuleEnumerator moduleEnum = container.Resolve<IModuleEnumerator>();
+            moduleInfos = moduleEnum.GetModules();
+        }
+
+        public ModuleInfo[] ModuleInfos {
+            get { return moduleInfos; }
+        }
+
+        public ModuleInfo SelectedInfo {
             get;
-            private set;
-        }
-
-        /// <summary>
-        /// Command which will open a line-plan as a line-plan editor
-        /// </summary>
-        public DelegateCommand<object> ShowHelpCommand {
-            get;
-            private set;
-        }
-
-        public DelegateCommand<object> ExitApplicationCommand {
-            get;
-            private set;
-        }
-
-        private void DoShowHelpExecuted(object param) {
-            LateNightAboutView about = new LateNightAboutView();
-            about.Owner = App.Current.MainWindow;
-            about.DataContext = container.Resolve<LateNightAboutModel>();
-            about.ShowDialog();
-        }
-
-        private void DoExitApplicationExecuted(object param) {
-            App.Current.Shutdown();
+            set;
         }
 
         #region System.Object overrides.
@@ -83,11 +51,11 @@ namespace BrettRyan.LateNight {
         /// <returns>true if this object is equal to <c>obj</c>.</returns>
         public override bool Equals(object obj) {
             //if (obj != null && obj.GetType().Equals(this.GetType())) {
-            //    LateNightShellModel other = obj as LateNightShellModel;
+            //    LateNightAboutModel other = obj as LateNightAboutModel;
             //    if ((object)other != null) {
             //        //TODO: Add Equals implementation
             //        // Uncomment the following only if an
-            //        // Equals(LateNightShellModel) implementation is present.
+            //        // Equals(LateNightAboutModel) implementation is present.
             //        //return Equals(other);
             //    }
             //}
@@ -95,19 +63,19 @@ namespace BrettRyan.LateNight {
             return base.Equals(obj);
         }
 
-        #region Equals(LateNightShellModel) implementation
+        #region Equals(LateNightAboutModel) implementation
         ///// <summary>
         ///// Returns true if this object is equal to <c>obj</c>.
         ///// </summary>
         ///// <remarks>
         ///// This is an overloaded Equals implementation taking a
-        ///// LateNightShellModel object to improve performance as a cast is not
+        ///// LateNightAboutModel object to improve performance as a cast is not
         ///// required.
         ///// </remarks>
         ///// <param name="other">
-        ///// LateNightShellModel object to compare against.
+        ///// LateNightAboutModel object to compare against.
         ///// </param>
-        //public bool Equals(LateNightShellModel other) {
+        //public bool Equals(LateNightAboutModel other) {
         //    //TODO: Add Equals implementation
         //    return base.Equals(other);
         //}
@@ -151,23 +119,6 @@ namespace BrettRyan.LateNight {
             //    + "]"
             //    ;
             return base.ToString();
-        }
-
-        #endregion
-
-
-        #region INotifyPropertyChanged Members
-
-        private event PropertyChangedEventHandler propertyChangedEvent;
-
-        public event PropertyChangedEventHandler PropertyChanged {
-            add { propertyChangedEvent += value; }
-            remove { propertyChangedEvent -= value; }
-        }
-
-        private void OnPropertyChanged(string prop) {
-            if (propertyChangedEvent != null)
-                propertyChangedEvent(this, new PropertyChangedEventArgs(prop));
         }
 
         #endregion

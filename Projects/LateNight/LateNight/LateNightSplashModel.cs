@@ -31,10 +31,6 @@ namespace BrettRyan.LateNight {
         }
 
 
-        public string VersionNumber {
-            get { return VersionHelper.AssemblyMajorVersion.ToString(); }
-        }
-
         public string FullVersion {
             get {
                 return String.Format("Version {0}",
