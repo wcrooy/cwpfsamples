@@ -24,6 +24,7 @@ namespace BrettRyan.LateNight.Modules.Welcome {
     /// <summary>
     ///
     /// </summary>
+    [Module(ModuleName="Late Night Welcome Module", StartupLoaded=true)]
     public class WelcomeModule : IModule {
 
         private readonly IDocumentController documentController;
