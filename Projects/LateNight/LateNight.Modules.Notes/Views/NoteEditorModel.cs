@@ -1,26 +1,20 @@
 ﻿/*
- * NotesBrowserModel.cs    6/16/2008 9:33:41 PM
+ * NoteEditorModel.cs    6/17/2008 2:19:10 AM
  *
- * Copyright 2008  All rights reserved.
+ * Copyright 2008 John Sands (Australia) Ltd. All rights reserved.
  * Use is subject to license terms
  *
- * Author: bryan
+ * Author: Brett Ryan
  */
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
 
-using Microsoft.Practices.Composite.Wpf.Commands;
-using Microsoft.Practices.Unity;
-
-using BrettRyan.LateNight.Constants;
 using BrettRyan.LateNight.DocumentModel;
 using BrettRyan.LateNight.Modules.Notes.Entities;
-using BrettRyan.LateNight.Modules.Notes.Services;
 
 
 namespace BrettRyan.LateNight.Modules.Notes.Views {
@@ -28,53 +22,23 @@ namespace BrettRyan.LateNight.Modules.Notes.Views {
     /// <summary>
     ///
     /// </summary>
-    public class NotesBrowserModel : AbstractDocument {
+    public class NoteEditorModel : AbstractDocument {
 
-        private FrameworkElement view;
-        private INoteService service;
-        private IDocumentController documentController;
+        private NoteEditor view;
 
         /// <summary>
-        /// Creates a new instance of <c>NotesBrowserModel</c>.
+        /// Creates a new instance of <c>NoteEditorModel</c>.
         /// </summary>
-        public NotesBrowserModel(IUnityContainer container) {
-            OpenNoteCommand = new DelegateCommand<Note>(OpenNote);
-
-            view = new NotesBrowser(this);
-            service = container.Resolve<INoteService>();
-            documentController = container.Resolve<IDocumentController>(
-                ControllerNames.DocumentController);
-
-            Notes = new ObservableCollection<Note>();
-            LoadAllNotes();
+        public NoteEditorModel(Note note) {
+            Note = note;
+            view = new NoteEditor();
+            view.DataContext = this;
         }
 
-        /// <summary>
-        /// Command which will open a note as a ntoe editor
-        /// </summary>
-        public DelegateCommand<Note> OpenNoteCommand {
+        public Note Note {
             get;
             private set;
         }
-
-        private void OpenNote(Note note) {
-            documentController.OpenDocument(new NoteEditorModel(note));
-        }
-
-        private void LoadAllNotes() {
-            IEnumerable<Note> res = service.GetAllNotes();
-            foreach (Note note in res) {
-                Notes.Add(note);
-            }
-        }
-
-
-
-        public ObservableCollection<Note> Notes {
-            get;
-            private set;
-        }
-
 
         #region System.Object overrides.
 
@@ -85,28 +49,29 @@ namespace BrettRyan.LateNight.Modules.Notes.Views {
         /// <returns>true if this object is equal to <c>obj</c>.</returns>
         public override bool Equals(object obj) {
             if (obj != null && obj.GetType().Equals(this.GetType())) {
-                NotesBrowserModel other = obj as NotesBrowserModel;
+                NoteEditorModel other = obj as NoteEditorModel;
                 if ((object)other != null) {
                     return Equals(other);
                 }
             }
             return false;
+            return base.Equals(obj);
         }
 
-        #region Equals(NotesBrowserModel) implementation
+        #region Equals(NoteEditorModel) implementation
         /// <summary>
         /// Returns true if this object is equal to <c>obj</c>.
         /// </summary>
         /// <remarks>
         /// This is an overloaded Equals implementation taking a
-        /// NotesBrowserModel object to improve performance as a cast is not
+        /// NoteEditorModel object to improve performance as a cast is not
         /// required.
         /// </remarks>
         /// <param name="other">
-        /// NotesBrowserModel object to compare against.
+        /// NoteEditorModel object to compare against.
         /// </param>
-        public bool Equals(NotesBrowserModel other) {
-            return true;
+        public bool Equals(NoteEditorModel other) {
+            return other.Note.Equals(Note);
         }
         #endregion
 
@@ -115,7 +80,7 @@ namespace BrettRyan.LateNight.Modules.Notes.Views {
         /// </summary>
         /// <returns>The hash for this object.</returns>
         public override int GetHashCode() {
-            return 76;
+            return 6 * Note.GetHashCode();
         }
 
         /// <summary>
@@ -140,18 +105,17 @@ namespace BrettRyan.LateNight.Modules.Notes.Views {
 
 
         public override string DocumentTitle {
-            get { return "Notes"; }
+            get { return Note.Title; }
         }
 
-        public override System.Windows.FrameworkElement View {
+        public override FrameworkElement View {
             get { return view; }
         }
 
         public override string Description {
-            get { return "Notes Browser"; }
+            get { throw new NotImplementedException(); }
         }
 
     }
 
 }
-

@@ -76,6 +76,10 @@
     <Compile Include="NotesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\StaticNoteService.cs" />
+    <Compile Include="Views\NoteEditor.xaml.cs">
+      <DependentUpon>NoteEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NoteEditorModel.cs" />
     <Compile Include="Views\NotesBrowser.xaml.cs">
       <DependentUpon>NotesBrowser.xaml</DependentUpon>
     </Compile>
@@ -92,6 +96,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\NoteEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\NotesBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
