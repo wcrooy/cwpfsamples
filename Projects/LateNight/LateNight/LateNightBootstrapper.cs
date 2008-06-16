@@ -57,8 +57,9 @@ namespace BrettRyan.LateNight {
         }
 
         protected override DependencyObject CreateShell() {
-            LateNightShell shell = Container.Resolve<LateNightShell>();
-            shell.DataContext = Container.Resolve<LateNightShellModel>();
+            LateNightShellModel model = Container.Resolve<LateNightShellModel>();
+            LateNightShell shell = new LateNightShell(model);
+            shell.DataContext = model;
             shell.Show();
             return shell;
         }

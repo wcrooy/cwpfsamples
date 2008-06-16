@@ -45,6 +45,9 @@ namespace BrettRyan.LateNight {
             CloseCurrentDocumentCommand = new DelegateCommand<object>(
                 DoCloseCurrentDocument, CanCloseCurrentDocument);
 
+            CloseDocumentCommand = new DelegateCommand<AbstractDocument>(
+                DocumentController.CloseDocument);
+
             DocumentController.DocumentOpened
                 += new EventHandler<DataEventArgs<AbstractDocument>>(DoReevaluateCloseCurrentDocumentCommand);
             DocumentController.DocumentClosed
@@ -80,6 +83,11 @@ namespace BrettRyan.LateNight {
         }
 
         public DelegateCommand<object> CloseCurrentDocumentCommand {
+            get;
+            private set;
+        }
+
+        public DelegateCommand<AbstractDocument> CloseDocumentCommand {
             get;
             private set;
         }

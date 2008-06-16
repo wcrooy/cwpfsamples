@@ -20,6 +20,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using BrettRyan.LateNight.DocumentModel;
+
 
 namespace BrettRyan.LateNight {
 
@@ -31,8 +33,15 @@ namespace BrettRyan.LateNight {
         /// <summary>
         /// Creates a new instance of <c>LateNightShell</c>.
         /// </summary>
-        public LateNightShell() {
+        internal LateNightShell(LateNightShellModel model) {
             InitializeComponent();
+
+            Model = model;
+        }
+
+        private LateNightShellModel Model {
+            get;
+            set;
         }
 
         private void DoKeyDownHandler(object sender, KeyEventArgs e) {
@@ -63,6 +72,16 @@ namespace BrettRyan.LateNight {
                     return;
                 }
                 xMainMenu.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void DoCloseDocumentButtonClicked(object sender, RoutedEventArgs e) {
+            ICommandSource src = sender as ICommandSource;
+            if (src != null) {
+                AbstractDocument doc = src.CommandParameter as AbstractDocument;
+                if (doc != null) {
+                    Model.CloseDocumentCommand.Execute(doc);
+                }
             }
         }
 

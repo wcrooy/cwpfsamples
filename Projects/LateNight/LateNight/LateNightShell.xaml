@@ -12,6 +12,7 @@
     >
     
     <Window.Resources>
+        
         <Style TargetType="{x:Type ResizeGrip}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#80d0d0d0"/>
@@ -69,8 +70,7 @@
         	</ControlTemplate.Resources>
             
         	<Border x:Name="border" Background="{x:Null}" BorderBrush="#00000000" BorderThickness="1">
-        		<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"
-                                  Margin="5,2,5,0"/>
+        		<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
         	</Border>
         	<ControlTemplate.Triggers>
         		<EventTrigger RoutedEvent="Mouse.MouseLeave">
@@ -182,11 +182,12 @@
                                    VerticalAlignment="Center" />
                             <!-- Wire up the command to the document manager. -->
                             <Button VerticalAlignment="Center"
-                                    Content="X" FontSize="7"
+                                    Content="X" FontSize="8"
                                     Margin="4,0,0,0"
+                                    Padding="5"
                                     Template="{DynamicResource TabCloseButtonTemplate}"
-                                    Command="{Binding CloseCurrentDocumentCommand}"
-                                    />
+                                    CommandParameter="{Binding .}"
+                                    Click="DoCloseDocumentButtonClicked"/>
                         </DockPanel>
                     </DataTemplate>
                 </TabControl.ItemTemplate>
