@@ -13,6 +13,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Practices.Composite.Events;
+using Microsoft.Practices.Composite.Wpf.Commands;
+
 using BrettRyan.LateNight.Infrastructure;
 
 
@@ -32,8 +35,35 @@ namespace BrettRyan.LateNight {
         /// </summary>
         public DocumentController() {
             Documents = new ObservableCollection<AbstractDocument>();
+            CloseDocumentCommand = new DelegateCommand<AbstractDocument>(DoCloseDocumentCommandExecute);
         }
 
+        public DelegateCommand<AbstractDocument> CloseDocumentCommand {
+            get;
+            private set;
+        }
+
+        private void DoCloseDocumentCommandExecute(AbstractDocument doc) {
+            DocumentClosingEventArgs closeArgs = new DocumentClosingEventArgs(doc);
+            OnDocumentClosing(this, closeArgs);
+            if (closeArgs.Cancel) {
+                //TODO: Work out the best way to handle this.
+                return;
+            }
+
+            CloseDocument(doc);
+
+            OnDocumentClosed(this, new DataEventArgs<AbstractDocument>(doc));
+        }
+
+        public event EventHandler<DocumentClosingEventArgs> DocumentClosing;
+        public event EventHandler<DataEventArgs<AbstractDocument>> DocumentClosed;
+
+        protected void OnDocumentClosing(object sender, DocumentClosingEventArgs args) {
+        }
+
+        protected void OnDocumentClosed(object sender, DataEventArgs<AbstractDocument> args) {
+        }
 
         #region IDocumentController Members
 
@@ -122,5 +152,22 @@ namespace BrettRyan.LateNight {
 
     }
 
+
+}
+
+public class DocumentClosingEventArgs : CancelEventArgs {
+
+    public DocumentClosingEventArgs(AbstractDocument doc) : this(doc, false) {
+    }
+
+    public DocumentClosingEventArgs(AbstractDocument doc, bool cancel)
+        : base(cancel) {
+        this.Document = doc;
+    }
+
+    public AbstractDocument Document {
+        get;
+        private set;
+    }
 
 }
