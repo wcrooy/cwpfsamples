@@ -33,12 +33,16 @@ namespace BrettRyan.LateNight.Modules.Notes.Views {
         private FrameworkElement view;
         private INoteService service;
         private IDocumentController documentController;
+        private Note selectedNote;
 
         /// <summary>
         /// Creates a new instance of <c>NotesBrowserModel</c>.
         /// </summary>
         public NotesBrowserModel(IUnityContainer container) {
             OpenNoteCommand = new DelegateCommand<Note>(OpenNote);
+            DeleteSelectedNoteCommand = new DelegateCommand<object>(
+                DeleteSelectedNote, CanDeleteSelectedNote);
+            CreateNewNoteCommand = new DelegateCommand<object>(CreateNewNote);
 
             view = new NotesBrowser(this);
             service = container.Resolve<INoteService>();
@@ -57,9 +61,38 @@ namespace BrettRyan.LateNight.Modules.Notes.Views {
             private set;
         }
 
+        public DelegateCommand<object> DeleteSelectedNoteCommand {
+            get;
+            private set;
+        }
+
+        public DelegateCommand<object> CreateNewNoteCommand {
+            get;
+            private set;
+        }
+
         private void OpenNote(Note note) {
             documentController.OpenDocument(new NoteEditorModel(note));
         }
+
+        private bool CanDeleteSelectedNote(object arg) {
+            return SelectedNote != null;
+        }
+
+        private void DeleteSelectedNote(object arg) {
+            if (SelectedNote != null) {
+                documentController.CloseDocument(new NoteEditorModel(SelectedNote));
+                service.DeleteNote(SelectedNote);
+                Notes.Remove(SelectedNote);
+            }
+        }
+
+        private void CreateNewNote(object arg) {
+            Note note = service.CreateNewNote();
+            Notes.Add(note);
+            documentController.OpenDocument(new NoteEditorModel(note));
+        }
+
 
         private void LoadAllNotes() {
             IEnumerable<Note> res = service.GetAllNotes();
@@ -68,11 +101,20 @@ namespace BrettRyan.LateNight.Modules.Notes.Views {
             }
         }
 
-
-
         public ObservableCollection<Note> Notes {
             get;
             private set;
+        }
+
+        public Note SelectedNote {
+            get { return selectedNote; }
+            set {
+                if (!Object.Equals(selectedNote, value)) {
+                    selectedNote = value;
+                    OnPropertyChanged("SelectedNote");
+                    DeleteSelectedNoteCommand.RaiseCanExecuteChanged();
+                }
+            }
         }
 
 

@@ -12,12 +12,13 @@
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal"
                     HorizontalAlignment="Right">
-            <Button Content="New"/>
-            <Button Content="Delete"/>
+            <Button Content="New" Command="{Binding CreateNewNoteCommand}"/>
+            <Button Content="Delete" Command="{Binding DeleteSelectedNoteCommand}"/>
         </StackPanel>
         <ListBox Margin="5,5,5,0" SelectionMode="Single"
                  MouseDoubleClick="DoNoteDoubleClicked"
                  ItemsSource="{Binding Notes}"
+                 SelectedItem="{Binding SelectedNote}"
                  >
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type ents:Note}">
