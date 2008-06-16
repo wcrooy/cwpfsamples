@@ -12,9 +12,6 @@
         >
 
     <Window.Resources>
-        <DataTemplate x:Key="ModuleInfoLineTemplate">
-            <ListViewItem Content="{Binding ModuleName}"/>
-        </DataTemplate>
 
         <DataTemplate DataType="{x:Type mod:ModuleInfo}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -174,8 +171,14 @@
                  SelectionMode="Single"
                  SelectedItem="{Binding SelectedInfo}"
                  ItemsSource="{Binding ModuleInfos}"
-                 ItemTemplate="{StaticResource ModuleInfoLineTemplate}"
-                 />
+                 IsSynchronizedWithCurrentItem="True"
+                 >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Padding="1" Content="{Binding ModuleName}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Label Content="Module Details:"/>
         <Border x:Name="xBorderModuleInfo"
                 Margin="4,1,4,0">
