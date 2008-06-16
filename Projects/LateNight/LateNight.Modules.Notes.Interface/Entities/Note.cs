@@ -16,7 +16,7 @@ using System.Text;
 namespace BrettRyan.LateNight.Modules.Notes.Entities {
 
     /// <summary>
-    ///
+    /// Represents a simple note object
     /// </summary>
     public class Note {
 
@@ -26,30 +26,52 @@ namespace BrettRyan.LateNight.Modules.Notes.Entities {
         public Note() {
         }
 
+        /// <summary>
+        /// Creates a new instance of <c>Note</c>.
+        /// </summary>
+        /// <param name="noteId">Note ID</param>
         public Note(int noteId) {
             NoteID = noteId;
         }
 
-        public Note(int noteId, string title) {
+        /// <summary>
+        /// Creates a new instance of <c>Note</c>.
+        /// </summary>
+        /// <param name="noteId">Note ID</param>
+        /// <param name="title">Title</param>
+        public Note(int noteId, string title) : this(noteId) {
             Title = title;
         }
 
-        public Note(int noteId, string title, string content) {
-            NoteID = noteId;
-            Title = title;
+        /// <summary>
+        /// Creates a new instance of <c>Note</c>.
+        /// </summary>
+        /// <param name="noteId">Note ID</param>
+        /// <param name="title">Title</param>
+        /// <param name="content">Note Content</param>
+        public Note(int noteId, string title, string content) : this(noteId, title) {
             Content = content;
         }
 
+        /// <summary>
+        /// Note Identifier.
+        /// </summary>
         public int NoteID {
             get;
             set;
         }
 
+        /// <summary>
+        /// Note title.
+        /// </summary>
         public string Title {
             get;
             set;
         }
 
+        /// <summary>
+        /// Note content.
+        /// </summary>
         public string Content {
             get;
             set;
