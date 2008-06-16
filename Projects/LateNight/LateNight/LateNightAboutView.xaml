@@ -63,25 +63,26 @@
 
                     <Label Grid.Column="1" Grid.Row="2"
                            FontWeight="Bold"
-                           Content="Load on Startup:"/>
-                    <Label Grid.Column="2" Grid.Row="2"
-                           Content="{Binding StartupLoaded}"/>
-
-                    <Label Grid.Column="1" Grid.Row="3"
-                           FontWeight="Bold"
                            Content="Assembly File:"/>
-                    <Label Grid.Column="2" Grid.Row="3"
+                    <Label Grid.Column="2" Grid.Row="2"
                            Content="{Binding AssemblyFile}"/>
 
                     <!--
                     TODO: Figure out how to get the assembly file information
                     -->
-                    <!--Label Grid.Column="1" Grid.Row="4"
+                    <!--Label Grid.Column="1" Grid.Row="3"
                            FontWeight="Bold"
                            Content="Assembly Version:"/>
-                    <Label Grid.Column="2" Grid.Row="4"
+                    <Label Grid.Column="2" Grid.Row="3"
                            Content="{Binding AssemblyFile}"/-->
-                    
+
+                    <Label Grid.Column="1" Grid.Row="4"
+                           FontWeight="Bold"
+                           Content="Load on Startup:"/>
+                    <CheckBox Grid.Column="2" Grid.Row="4"
+                              IsEnabled="False"
+                              IsChecked="{Binding Path=StartupLoaded, Mode=OneWay}"/>
+
                     <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3"
                            FontWeight="Bold"
                            Content="Module Dependencies"/>
@@ -98,6 +99,9 @@
         </Style>
         <Style TargetType="Label">
             <Setter Property="Padding" Value="4,1,4,0"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin" Value="4,1,4,0"/>
         </Style>
         <Style TargetType="ListBox">
             <Setter Property="Margin" Value="4,1,4,0"/>
