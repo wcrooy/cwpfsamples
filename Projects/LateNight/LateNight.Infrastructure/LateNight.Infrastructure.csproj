@@ -55,9 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractDataModel.cs" />
-    <Compile Include="AbstractDocument.cs" />
     <Compile Include="Constants\ControllerNames.cs" />
-    <Compile Include="IDocumentController.cs" />
+    <Compile Include="DocumentModel\AbstractDocument.cs" />
+    <Compile Include="DocumentModel\IDocumentController.cs" />
     <Compile Include="ModelState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ISplashService.cs" />

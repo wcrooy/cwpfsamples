@@ -15,8 +15,8 @@ using System.Text;
 using Microsoft.Practices.Composite.Modularity;
 using Microsoft.Practices.Unity;
 
-using BrettRyan.LateNight.Infrastructure;
 using BrettRyan.LateNight.Infrastructure.Constants;
+using BrettRyan.LateNight.Infrastructure.DocumentModel;
 
 
 namespace BrettRyan.LateNight.Modules.Welcome {

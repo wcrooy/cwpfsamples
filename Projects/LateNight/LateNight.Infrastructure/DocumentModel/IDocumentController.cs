@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 
 
-namespace BrettRyan.LateNight.Infrastructure {
+namespace BrettRyan.LateNight.Infrastructure.DocumentModel {
 
     public interface IDocumentController {
 

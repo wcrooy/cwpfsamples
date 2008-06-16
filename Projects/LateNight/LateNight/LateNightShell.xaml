@@ -31,7 +31,7 @@
         </Style>
 
         <DataTemplate x:Key="DocumentHeaderTemplate"
-                      DataType="{x:Type inf:AbstractDocument}">
+                      DataType="{x:Type inf:DocumentModel.AbstractDocument}">
             <DockPanel ToolTip="{Binding Path=Description}">
                 <Label Padding="0" Content="{Binding Path=DocumentTitle}"
                        VerticalAlignment="Center" />

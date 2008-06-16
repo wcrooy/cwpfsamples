@@ -16,7 +16,7 @@ using System.Text;
 using Microsoft.Practices.Composite.Events;
 using Microsoft.Practices.Composite.Wpf.Commands;
 
-using BrettRyan.LateNight.Infrastructure;
+using BrettRyan.LateNight.Infrastructure.DocumentModel;
 
 
 namespace BrettRyan.LateNight {
