@@ -107,7 +107,7 @@ namespace BrettRyan.LateNight.Modules.Notes.Entities {
         /// type name.
         /// </remarks>
         public override string ToString() {
-            return String.Format("{0}[NoteID={2},Title={4}]",
+            return String.Format("{0}[NoteID={1},Title={2}]",
                 GetType().Name,
                 NoteID,
                 Title);
