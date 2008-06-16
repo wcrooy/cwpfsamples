@@ -25,6 +25,17 @@ namespace BrettRyan.LateNight.Constants {
         /// </summary>
         public const string DocumentController = "DocumentController";
 
+        /// <summary>
+        /// Document controlelr for extension points within the application.
+        /// </summary>
+        /// <remarks>
+        /// This is currently just the left hand side of the application
+        /// though it may is likely I will extend this at a later date to
+        /// allow for multiple extension regions. This behaviour could then
+        /// reflect the docking behaviour in Visual Studio.
+        /// </remarks>
+        public const string SystemDocumentController = "SystemDocumentController";
+
     }
 
 }
