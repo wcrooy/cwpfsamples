@@ -50,25 +50,25 @@ namespace BrettRyan.LateNight.Modules.Notes.Services {
             static StaticNoteDataStore() {
                 notes = new Dictionary<int, Note>();
                 int id = NextID();
-                notes.Add(id, new Note(id, "Title #1", "This is the content of the note #1"));
+                notes.Add(id, new Note(id, "Static Note #1", "This is the content of the note #1"));
                 id = NextID();
-                notes.Add(id, new Note(id, "Title #2", "This is the content of the note #2"));
+                notes.Add(id, new Note(id, "Static Note #2", "This is the content of the note #2"));
                 id = NextID();
-                notes.Add(id, new Note(id, "Title #3", "This is the content of the note #3"));
+                notes.Add(id, new Note(id, "Static Note #3", "This is the content of the note #3"));
                 id = NextID();
-                notes.Add(id, new Note(id, "Title #4", "This is the content of the note #4"));
+                notes.Add(id, new Note(id, "Static Note #4", "This is the content of the note #4"));
                 id = NextID();
-                notes.Add(id, new Note(id, "Title #5", "This is the content of the note #5"));
+                notes.Add(id, new Note(id, "Static Note #5", "This is the content of the note #5"));
                 id = NextID();
-                notes.Add(id, new Note(id, "Title #6", "This is the content of the note #6"));
+                notes.Add(id, new Note(id, "Static Note #6", "This is the content of the note #6"));
                 id = NextID();
-                notes.Add(id, new Note(id, "Title #7", "This is the content of the note #7"));
+                notes.Add(id, new Note(id, "Static Note #7", "This is the content of the note #7"));
                 id = NextID();
-                notes.Add(id, new Note(id, "Title #8", "This is the content of the note #8"));
+                notes.Add(id, new Note(id, "Static Note #8", "This is the content of the note #8"));
                 id = NextID();
-                notes.Add(id, new Note(id, "Title #9", "This is the content of the note #9"));
+                notes.Add(id, new Note(id, "Static Note #9", "This is the content of the note #9"));
                 id = NextID();
-                notes.Add(id, new Note(id, "Title #10", "This is the content of the note #10"));
+                notes.Add(id, new Note(id, "Static Note #10", "This is the content of the note #10"));
             }
 
             private static int NextID() {
