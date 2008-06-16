@@ -17,8 +17,8 @@ using Microsoft.Practices.Composite.Modularity;
 using Microsoft.Practices.Composite.UnityExtensions;
 using Microsoft.Practices.Unity;
 
-using BrettRyan.LateNight.Infrastructure.Constants;
-using BrettRyan.LateNight.Infrastructure.DocumentModel;
+using BrettRyan.LateNight.Constants;
+using BrettRyan.LateNight.DocumentModel;
 
 
 namespace BrettRyan.LateNight {

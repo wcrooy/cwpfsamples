@@ -16,7 +16,7 @@ using System.Text;
 using System.Windows.Threading;
 
 
-namespace BrettRyan.LateNight.Infrastructure {
+namespace BrettRyan.LateNight {
 
     /// <summary>
     ///

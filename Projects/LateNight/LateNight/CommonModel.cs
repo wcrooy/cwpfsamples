@@ -12,8 +12,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using BrettRyan.LateNight.Infrastructure;
-
 
 namespace BrettRyan.LateNight {
 

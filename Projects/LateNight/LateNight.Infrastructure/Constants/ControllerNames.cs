@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 
 
-namespace BrettRyan.LateNight.Infrastructure.Constants {
+namespace BrettRyan.LateNight.Constants {
 
     /// <summary>
     /// Names for controller items.

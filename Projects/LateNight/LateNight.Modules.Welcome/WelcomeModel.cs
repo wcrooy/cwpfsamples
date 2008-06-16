@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 
-using BrettRyan.LateNight.Infrastructure.DocumentModel;
+using BrettRyan.LateNight.DocumentModel;
 
 
 namespace BrettRyan.LateNight.Modules.Welcome {

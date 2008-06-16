@@ -14,7 +14,7 @@ using System.Text;
 using System.Windows;
 
 
-namespace BrettRyan.LateNight.Infrastructure.DocumentModel {
+namespace BrettRyan.LateNight.DocumentModel {
 
     /// <summary>
     /// Base document meant to be consumed by an

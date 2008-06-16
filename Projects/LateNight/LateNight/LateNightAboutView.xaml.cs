@@ -20,8 +20,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-using BrettRyan.LateNight.Infrastructure;
-
 
 namespace BrettRyan.LateNight {
 

@@ -16,14 +16,14 @@ using System.Text;
 using Microsoft.Practices.Composite.Events;
 using Microsoft.Practices.Composite.Wpf.Commands;
 
-using BrettRyan.LateNight.Infrastructure.DocumentModel;
+using BrettRyan.LateNight.DocumentModel;
 
 
 namespace BrettRyan.LateNight {
 
     /// <summary>
     /// Document Controller implementation of the
-    /// <see cref="BrettRyan.LateNight.Infrastructure.IDocumentController"/>
+    /// <see cref="BrettRyan.LateNight.DocumentModel.IDocumentController"/>
     /// interface.
     /// </summary>
     public class DocumentController : IDocumentController, INotifyPropertyChanged {

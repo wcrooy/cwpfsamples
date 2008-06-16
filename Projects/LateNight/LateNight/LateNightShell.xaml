@@ -2,7 +2,7 @@
     x:Class="BrettRyan.LateNight.LateNightShell"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:inf="clr-namespace:BrettRyan.LateNight.Infrastructure;assembly=LateNight.Infrastructure"
+    xmlns:inf="clr-namespace:BrettRyan.LateNight;assembly=LateNight.Infrastructure"
     xmlns:local="clr-namespace:BrettRyan.LateNight"
     Title="Late Night" Width="640" Height="480"
     MinWidth="300" MinHeight="200"

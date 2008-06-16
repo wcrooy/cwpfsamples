@@ -16,8 +16,8 @@ using System.Text;
 using Microsoft.Practices.Composite.Wpf.Commands;
 using Microsoft.Practices.Unity;
 
-using BrettRyan.LateNight.Infrastructure.Constants;
-using BrettRyan.LateNight.Infrastructure.DocumentModel;
+using BrettRyan.LateNight.Constants;
+using BrettRyan.LateNight.DocumentModel;
 
 
 namespace BrettRyan.LateNight {

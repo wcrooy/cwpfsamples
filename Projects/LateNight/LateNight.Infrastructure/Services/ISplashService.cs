@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 
 
-namespace BrettRyan.LateNight.Infrastructure.Services {
+namespace BrettRyan.LateNight.Services {
 
     /// <summary>
     ///

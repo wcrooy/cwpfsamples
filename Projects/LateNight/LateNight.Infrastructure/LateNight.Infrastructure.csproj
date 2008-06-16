@@ -8,7 +8,7 @@
     <ProjectGuid>{6B30593C-B386-4289-AC4E-08559A7E336C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BrettRyan.LateNight.Infrastructure</RootNamespace>
+    <RootNamespace>BrettRyan.LateNight</RootNamespace>
     <AssemblyName>LateNight.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -15,7 +15,7 @@ using System.Reflection;
 using System.Text;
 
 
-namespace BrettRyan.LateNight.Infrastructure {
+namespace BrettRyan.LateNight {
 
     /// <summary>
     /// Common static methods.
