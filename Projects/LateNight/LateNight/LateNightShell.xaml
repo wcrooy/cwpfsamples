@@ -21,7 +21,7 @@
                         <Grid SnapsToDevicePixels="True" Background="{TemplateBinding Background}">
                             <Path Fill="{TemplateBinding Foreground}"
 								  HorizontalAlignment="Right"
-								  Margin="0,0,2,1.917" VerticalAlignment="Bottom"
+								  Margin="0,0,2,2" VerticalAlignment="Bottom"
                                   Data="M13,0 L13,13 0,13"
 								  Width="13" Height="13"/>
                         </Grid>
@@ -35,6 +35,11 @@
             <DockPanel ToolTip="{Binding Path=Description}">
                 <Label Padding="0" Content="{Binding Path=DocumentTitle}"
                        VerticalAlignment="Center" />
+                <!-- Wire up the command to the document manager. -->
+                <Button VerticalAlignment="Center"
+                        Content="X" FontSize="7"
+                        Margin="4,0,0,0"
+                        Template="{DynamicResource TabCloseButtonTemplate}"/>
             </DockPanel>
         </DataTemplate>
         <DataTemplate x:Key="DocumentContentTemplate">
@@ -43,6 +48,41 @@
 
         <CollectionViewSource x:Key="DocumentSource"
                               Source="{Binding DocumentController.Documents}"/>
+        <ControlTemplate x:Key="TabCloseButtonTemplate"
+		                 TargetType="{x:Type Button}">
+            
+        	<ControlTemplate.Resources>
+        		<Storyboard x:Key="OnMouseEnter2">
+                    <ColorAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                  Storyboard.TargetName="border"
+                                                  Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                        <SplineColorKeyFrame KeyTime="00:00:00.025" Value="#70000000"/>
+                    </ColorAnimationUsingKeyFrames>
+                </Storyboard>
+        		<Storyboard x:Key="OnMouseLeave1">
+        			<ColorAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                  Storyboard.TargetName="border"
+                                                  Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+        				<SplineColorKeyFrame KeyTime="00:00:00.025" Value="#00000000"/>
+        			</ColorAnimationUsingKeyFrames>
+        		</Storyboard>
+        	</ControlTemplate.Resources>
+            
+        	<Border x:Name="border" Background="{x:Null}" BorderBrush="#00000000" BorderThickness="1">
+        		<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  Margin="5,2,5,0"/>
+        	</Border>
+        	<ControlTemplate.Triggers>
+        		<EventTrigger RoutedEvent="Mouse.MouseLeave">
+        			<BeginStoryboard Storyboard="{StaticResource OnMouseLeave1}"
+                                     x:Name="OnMouseLeave1_BeginStoryboard"/>
+        		</EventTrigger>
+        		<EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="border">
+        			<BeginStoryboard x:Name="OnMouseEnter2_BeginStoryboard"
+                                     Storyboard="{StaticResource OnMouseEnter2}"/>
+        		</EventTrigger>
+        	</ControlTemplate.Triggers>
+        </ControlTemplate>
 
     </Window.Resources>
     
