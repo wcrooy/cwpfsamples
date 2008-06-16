@@ -14,7 +14,6 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Practices.Composite.Events;
-using Microsoft.Practices.Composite.Wpf.Commands;
 
 
 namespace BrettRyan.LateNight.DocumentModel {
@@ -33,29 +32,25 @@ namespace BrettRyan.LateNight.DocumentModel {
         /// </summary>
         public DocumentController() {
             Documents = new ObservableCollection<AbstractDocument>();
-            CloseDocumentCommand = new DelegateCommand<AbstractDocument>(DoCloseDocumentCommandExecute);
         }
 
-        public DelegateCommand<AbstractDocument> CloseDocumentCommand {
-            get;
-            private set;
-        }
+        #region IDocumentController Members
 
-        private void DoCloseDocumentCommandExecute(AbstractDocument doc) {
-            DocumentClosingEventArgs closeArgs = new DocumentClosingEventArgs(doc);
-            OnDocumentClosing(this, closeArgs);
-            if (closeArgs.Cancel) {
-                //TODO: Work out the best way to handle this.
-                return;
-            }
-
-            CloseDocument(doc);
-
-            OnDocumentClosed(this, new DataEventArgs<AbstractDocument>(doc));
-        }
-
+        /// <summary>
+        /// Fired prior to a document being closed.
+        /// </summary>
         public event EventHandler<DocumentClosingEventArgs> DocumentClosing;
+
+        /// <summary>
+        /// Fired after a document has been cloed.
+        /// </summary>
         public event EventHandler<DataEventArgs<AbstractDocument>> DocumentClosed;
+
+        /// <summary>
+        /// Fired after a document has been opened.
+        /// </summary>
+        public event EventHandler<DataEventArgs<AbstractDocument>> DocumentOpened;
+
 
         protected void OnDocumentClosing(object sender, DocumentClosingEventArgs args) {
             if (DocumentClosing != null) {
@@ -69,7 +64,11 @@ namespace BrettRyan.LateNight.DocumentModel {
             }
         }
 
-        #region IDocumentController Members
+        protected void OnDocumentOpened(object sender, DataEventArgs<AbstractDocument> args) {
+            if (DocumentOpened != null) {
+                DocumentOpened(sender, args);
+            }
+        }
 
         /// <summary>
         /// List of documents this controller is managing.
@@ -115,6 +114,7 @@ namespace BrettRyan.LateNight.DocumentModel {
                 Documents.Add(document);
             }
             CurrentDocument = document;
+            OnDocumentOpened(this, new DataEventArgs<AbstractDocument>(document));
         }
 
         /// <summary>
@@ -125,10 +125,19 @@ namespace BrettRyan.LateNight.DocumentModel {
         /// <param name="document">Document to be removed.</param>
         public void CloseDocument(AbstractDocument document) {
             if (Documents.Contains(document)) {
+                DocumentClosingEventArgs closeArgs = new DocumentClosingEventArgs(document);
+
+                OnDocumentClosing(this, closeArgs);
+                if (closeArgs.Cancel) {
+                    //TODO: Work out the best way to handle this.
+                    return;
+                }
+
                 if (document.Equals(CurrentDocument)) {
                     CurrentDocument = null;
                 }
                 Documents.Remove(document);
+                OnDocumentClosed(this, new DataEventArgs<AbstractDocument>(document));
             }
         }
 
@@ -156,23 +165,4 @@ namespace BrettRyan.LateNight.DocumentModel {
 
     }
 
-    public class DocumentClosingEventArgs : CancelEventArgs {
-
-        public DocumentClosingEventArgs(AbstractDocument doc)
-            : this(doc, false) {
-        }
-
-        public DocumentClosingEventArgs(AbstractDocument doc, bool cancel)
-            : base(cancel) {
-            this.Document = doc;
-        }
-
-        public AbstractDocument Document {
-            get;
-            private set;
-        }
-
-    }
-
 }
-

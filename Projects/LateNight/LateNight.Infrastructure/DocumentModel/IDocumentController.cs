@@ -12,10 +12,27 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Practices.Composite.Events;
+
 
 namespace BrettRyan.LateNight.DocumentModel {
 
     public interface IDocumentController {
+
+        /// <summary>
+        /// Fired prior to a document being closed.
+        /// </summary>
+        event EventHandler<DocumentClosingEventArgs> DocumentClosing;
+
+        /// <summary>
+        /// Fired after a document has been cloed.
+        /// </summary>
+        event EventHandler<DataEventArgs<AbstractDocument>> DocumentClosed;
+
+        /// <summary>
+        /// Fired after a document has been opened.
+        /// </summary>
+        event EventHandler<DataEventArgs<AbstractDocument>> DocumentOpened;
 
         /// <summary>
         /// List of documents this controller is managing.
@@ -54,6 +71,5 @@ namespace BrettRyan.LateNight.DocumentModel {
         void CloseDocument(AbstractDocument document);
 
     }
-
 
 }
