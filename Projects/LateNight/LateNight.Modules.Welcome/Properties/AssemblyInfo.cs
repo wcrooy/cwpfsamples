@@ -17,7 +17,7 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Late Night - Welcome Module")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Very simple example of how a module might present a welcome screen on startup.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Brett Ryan")]
 [assembly: AssemblyProduct("Late Night")]
@@ -40,6 +40,6 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.1.*")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("0.4.*")]
+[assembly: AssemblyFileVersion("0.4.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]

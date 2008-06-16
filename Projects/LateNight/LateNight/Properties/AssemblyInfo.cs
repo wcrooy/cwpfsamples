@@ -8,7 +8,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Late Night")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Late Night is a demonstration application for ideas on ways to utilize the application block.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Brett Ryan")]
 [assembly: AssemblyProduct("Late Night")]
@@ -51,6 +51,6 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.3.*")]
-[assembly: AssemblyFileVersion("0.3.0.0")]
+[assembly: AssemblyVersion("0.4.*")]
+[assembly: AssemblyFileVersion("0.4.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
