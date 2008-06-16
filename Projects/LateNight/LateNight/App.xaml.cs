@@ -53,7 +53,6 @@ namespace BrettRyan.LateNight {
             splash.Close();
         }
 
-        
     }
 
 }
