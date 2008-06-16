@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Practices.Composite.Events;
 using Microsoft.Practices.Composite.Wpf.Commands;
 using Microsoft.Practices.Unity;
 
@@ -40,6 +41,26 @@ namespace BrettRyan.LateNight {
 
             DocumentController = container.Resolve<IDocumentController>(
                 ControllerNames.DocumentController);
+
+            CloseCurrentDocumentCommand = new DelegateCommand<object>(
+                DoCloseCurrentDocument, CanCloseCurrentDocument);
+
+            DocumentController.DocumentOpened
+                += new EventHandler<DataEventArgs<AbstractDocument>>(DoReevaluateCloseCurrentDocumentCommand);
+            DocumentController.DocumentClosed
+                += new EventHandler<DataEventArgs<AbstractDocument>>(DoReevaluateCloseCurrentDocumentCommand);
+        }
+
+        private void DoReevaluateCloseCurrentDocumentCommand(object sender, DataEventArgs<AbstractDocument> e) {
+            CloseCurrentDocumentCommand.RaiseCanExecuteChanged();
+        }
+
+        private void DoCloseCurrentDocument(object arg) {
+            DocumentController.CloseDocument(DocumentController.CurrentDocument);
+        }
+
+        private bool CanCloseCurrentDocument(object arg) {
+            return DocumentController.CurrentDocument != null;
         }
 
         /// <summary>
@@ -54,6 +75,11 @@ namespace BrettRyan.LateNight {
         /// Command which will open a line-plan as a line-plan editor
         /// </summary>
         public DelegateCommand<object> ShowAboutCommand {
+            get;
+            private set;
+        }
+
+        public DelegateCommand<object> CloseCurrentDocumentCommand {
             get;
             private set;
         }

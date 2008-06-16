@@ -2,7 +2,7 @@
     x:Class="BrettRyan.LateNight.LateNightShell"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:inf="clr-namespace:BrettRyan.LateNight;assembly=LateNight.Infrastructure"
+    xmlns:dm="clr-namespace:BrettRyan.LateNight.DocumentModel;assembly=LateNight.Infrastructure"
     xmlns:local="clr-namespace:BrettRyan.LateNight"
     Title="Late Night" Width="640" Height="480"
     MinWidth="300" MinHeight="200"
@@ -31,7 +31,7 @@
         </Style>
 
         <DataTemplate x:Key="DocumentHeaderTemplate"
-                      DataType="{x:Type inf:DocumentModel.AbstractDocument}">
+                      DataType="{x:Type dm:AbstractDocument}">
             <DockPanel ToolTip="{Binding Path=Description}">
                 <Label Padding="0" Content="{Binding Path=DocumentTitle}"
                        VerticalAlignment="Center" />
@@ -114,6 +114,10 @@
                 <MenuItem Header="_File">
                     <MenuItem Header="E_xit" Command="{Binding ExitApplicationCommand}"/>
                 </MenuItem>
+                <MenuItem Header="_Window">
+                    <MenuItem Header="_Close current document"
+                              Command="{Binding CloseCurrentDocumentCommand}"/>
+                </MenuItem>
                 <MenuItem Header="_Help">
                     <MenuItem Header="_About" Command="{Binding ShowAboutCommand}"/>
                 </MenuItem>
@@ -167,11 +171,26 @@
 
             <TabControl Grid.Column="2" Margin="5"
                         ItemsSource="{Binding Source={StaticResource DocumentSource}}"
-                        ItemTemplate="{StaticResource DocumentHeaderTemplate}"
                         ContentTemplate="{StaticResource DocumentContentTemplate}"
                         SelectedItem="{Binding Path=DocumentController.CurrentDocument}"
-                        />
-
+                        >
+                <TabControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type dm:AbstractDocument}">
+                        <DockPanel ToolTip="{Binding Path=Description}">
+                            <Label Padding="0"
+                                   Content="{Binding Path=DocumentTitle}"
+                                   VerticalAlignment="Center" />
+                            <!-- Wire up the command to the document manager. -->
+                            <Button VerticalAlignment="Center"
+                                    Content="X" FontSize="7"
+                                    Margin="4,0,0,0"
+                                    Template="{DynamicResource TabCloseButtonTemplate}"
+                                    Command="{Binding CloseCurrentDocumentCommand}"
+                                    />
+                        </DockPanel>
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+            </TabControl>
         </Grid>
 
     </DockPanel>
