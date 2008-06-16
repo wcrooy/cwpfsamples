@@ -16,9 +16,9 @@ using System.Text;
 namespace BrettRyan.LateNight {
 
     /// <summary>
-    ///
+    /// Common module used by the base appliation.
     /// </summary>
-    public static class CommonModel {
+    internal static class CommonModel {
 
         private static string versionText;
 
