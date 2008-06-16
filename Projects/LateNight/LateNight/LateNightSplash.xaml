@@ -66,6 +66,7 @@
                FontFamily="Stencil"
                FontSize="24"
                Foreground="Yellow"
+               Visibility="{Binding PreviewVisibility}"
                Content="[ PREVIEW ]"/>
         <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
                Content="{Binding Message}"/>

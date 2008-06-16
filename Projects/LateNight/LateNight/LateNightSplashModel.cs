@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 
 namespace BrettRyan.LateNight {
@@ -39,6 +40,16 @@ namespace BrettRyan.LateNight {
         public string Message {
             get;
             internal set;
+        }
+
+        public Visibility PreviewVisibility {
+            get {
+#if DEBUG
+                return Visibility.Visible;
+#else
+                return Visibility.Hidden;
+#endif
+            }
         }
 
 
