@@ -31,24 +31,15 @@
             </Setter>
         </Style>
 
-        <DataTemplate x:Key="DocumentHeaderTemplate"
-                      DataType="{x:Type dm:AbstractDocument}">
-            <DockPanel ToolTip="{Binding Path=Description}">
-                <Label Padding="0" Content="{Binding Path=DocumentTitle}"
-                       VerticalAlignment="Center" />
-                <!-- Wire up the command to the document manager. -->
-                <Button VerticalAlignment="Center"
-                        Content="X" FontSize="7"
-                        Margin="4,0,0,0"
-                        Template="{DynamicResource TabCloseButtonTemplate}"/>
-            </DockPanel>
-        </DataTemplate>
         <DataTemplate x:Key="DocumentContentTemplate">
             <ContentControl Content="{Binding Path=View}"/>
         </DataTemplate>
 
         <CollectionViewSource x:Key="DocumentSource"
                               Source="{Binding DocumentController.Documents}"/>
+        <CollectionViewSource x:Key="SystemDocumentSource"
+                              Source="{Binding SystemDocumentController.Documents}"/>
+
         <ControlTemplate x:Key="TabCloseButtonTemplate"
 		                 TargetType="{x:Type Button}">
             
@@ -159,7 +150,20 @@
                 <ColumnDefinition MinWidth="100" Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TabControl Grid.Column="0" Margin="5"/>
+            <TabControl Grid.Column="0" Margin="5"
+                        ItemsSource="{Binding Source={StaticResource SystemDocumentSource}}"
+                        ContentTemplate="{StaticResource DocumentContentTemplate}"
+                        SelectedItem="{Binding Path=SystemDocumentController.CurrentDocument}">
+                <TabControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type dm:AbstractDocument}">
+                        <DockPanel ToolTip="{Binding Path=Description}">
+                            <Label Padding="0"
+                               Content="{Binding Path=DocumentTitle}"
+                               VerticalAlignment="Center" />
+                        </DockPanel>
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+            </TabControl>
 
             <GridSplitter Grid.Column="1" Width="5"
                           Margin="0,35,0,10"
@@ -172,26 +176,26 @@
             <TabControl Grid.Column="2" Margin="5"
                         ItemsSource="{Binding Source={StaticResource DocumentSource}}"
                         ContentTemplate="{StaticResource DocumentContentTemplate}"
-                        SelectedItem="{Binding Path=DocumentController.CurrentDocument}"
-                        >
+                        SelectedItem="{Binding Path=DocumentController.CurrentDocument}">
                 <TabControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type dm:AbstractDocument}">
                         <DockPanel ToolTip="{Binding Path=Description}">
                             <Label Padding="0"
-                                   Content="{Binding Path=DocumentTitle}"
-                                   VerticalAlignment="Center" />
+                               Content="{Binding Path=DocumentTitle}"
+                               VerticalAlignment="Center" />
                             <!-- Wire up the command to the document manager. -->
                             <Button VerticalAlignment="Center"
-                                    Content="X" FontSize="8"
-                                    Margin="4,0,0,0"
-                                    Padding="5"
-                                    Template="{DynamicResource TabCloseButtonTemplate}"
-                                    CommandParameter="{Binding .}"
-                                    Click="DoCloseDocumentButtonClicked"/>
+                                Content="X" FontSize="8"
+                                Margin="4,0,0,0"
+                                Padding="5"
+                                Template="{DynamicResource TabCloseButtonTemplate}"
+                                CommandParameter="{Binding .}"
+                                Click="DoCloseDocumentButtonClicked"/>
                         </DockPanel>
                     </DataTemplate>
                 </TabControl.ItemTemplate>
             </TabControl>
+            
         </Grid>
 
     </DockPanel>

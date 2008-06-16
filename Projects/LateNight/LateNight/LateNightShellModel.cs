@@ -41,6 +41,8 @@ namespace BrettRyan.LateNight {
 
             DocumentController = container.Resolve<IDocumentController>(
                 ControllerNames.DocumentController);
+            SystemDocumentController = container.Resolve<IDocumentController>(
+                ControllerNames.SystemDocumentController);
 
             CloseCurrentDocumentCommand = new DelegateCommand<object>(
                 DoCloseCurrentDocument, CanCloseCurrentDocument);
@@ -70,6 +72,14 @@ namespace BrettRyan.LateNight {
         /// Returns the current instance of the document controller.
         /// </summary>
         public IDocumentController DocumentController {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Returns the current instance of the system document controller.
+        /// </summary>
+        public IDocumentController SystemDocumentController {
             get;
             private set;
         }
