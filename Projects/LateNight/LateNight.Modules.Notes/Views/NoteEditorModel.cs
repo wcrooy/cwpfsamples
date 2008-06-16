@@ -55,7 +55,6 @@ namespace BrettRyan.LateNight.Modules.Notes.Views {
                 }
             }
             return false;
-            return base.Equals(obj);
         }
 
         #region Equals(NoteEditorModel) implementation
