@@ -1,6 +1,8 @@
 ﻿<UserControl x:Class="BrettRyan.LateNight.Modules.Notes.Views.NotesBrowser"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ents="clr-namespace:BrettRyan.LateNight.Modules.Notes.Entities;assembly=LateNight.Modules.Notes.Interface"
+             >
     <UserControl.Resources>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="4"/>
@@ -16,6 +18,12 @@
         <ListBox Margin="5,5,5,0" SelectionMode="Single"
                  MouseDoubleClick="DoNoteDoubleClicked"
                  ItemsSource="{Binding Notes}"
-                 />
+                 >
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type ents:Note}">
+                    <Label Padding="0" Content="{Binding Title}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </DockPanel>
 </UserControl>
