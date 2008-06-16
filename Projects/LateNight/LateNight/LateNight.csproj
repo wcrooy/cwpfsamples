@@ -90,7 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonModel.cs" />
-    <Compile Include="DocumentController.cs" />
+    <Compile Include="DocumentModel\DocumentController.cs" />
     <Compile Include="LateNightAboutModel.cs" />
     <Compile Include="LateNightAboutView.xaml.cs">
       <DependentUpon>LateNightAboutView.xaml</DependentUpon>

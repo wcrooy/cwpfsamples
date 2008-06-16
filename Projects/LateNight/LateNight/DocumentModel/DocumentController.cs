@@ -16,10 +16,8 @@ using System.Text;
 using Microsoft.Practices.Composite.Events;
 using Microsoft.Practices.Composite.Wpf.Commands;
 
-using BrettRyan.LateNight.DocumentModel;
 
-
-namespace BrettRyan.LateNight {
+namespace BrettRyan.LateNight.DocumentModel {
 
     /// <summary>
     /// Document Controller implementation of the
@@ -158,22 +156,23 @@ namespace BrettRyan.LateNight {
 
     }
 
+    public class DocumentClosingEventArgs : CancelEventArgs {
+
+        public DocumentClosingEventArgs(AbstractDocument doc)
+            : this(doc, false) {
+        }
+
+        public DocumentClosingEventArgs(AbstractDocument doc, bool cancel)
+            : base(cancel) {
+            this.Document = doc;
+        }
+
+        public AbstractDocument Document {
+            get;
+            private set;
+        }
+
+    }
 
 }
 
-public class DocumentClosingEventArgs : CancelEventArgs {
-
-    public DocumentClosingEventArgs(AbstractDocument doc) : this(doc, false) {
-    }
-
-    public DocumentClosingEventArgs(AbstractDocument doc, bool cancel)
-        : base(cancel) {
-        this.Document = doc;
-    }
-
-    public AbstractDocument Document {
-        get;
-        private set;
-    }
-
-}
