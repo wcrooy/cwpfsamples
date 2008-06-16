@@ -60,9 +60,15 @@ namespace BrettRyan.LateNight {
         public event EventHandler<DataEventArgs<AbstractDocument>> DocumentClosed;
 
         protected void OnDocumentClosing(object sender, DocumentClosingEventArgs args) {
+            if (DocumentClosing != null) {
+                DocumentClosing(sender, args);
+            }
         }
 
         protected void OnDocumentClosed(object sender, DataEventArgs<AbstractDocument> args) {
+            if (DocumentClosed != null) {
+                DocumentClosed(sender, args);
+            }
         }
 
         #region IDocumentController Members
