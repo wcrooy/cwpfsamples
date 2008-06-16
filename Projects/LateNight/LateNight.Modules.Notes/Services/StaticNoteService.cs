@@ -87,7 +87,8 @@ namespace BrettRyan.LateNight.Modules.Notes.Services {
             }
 
             public static Note Create() {
-                Note note = new Note(NextID(), "New Note");
+                int id = NextID();
+                Note note = new Note(id, "New Note #" + id);
                 notes.Add(note.NoteID, note);
                 return note;
             }
