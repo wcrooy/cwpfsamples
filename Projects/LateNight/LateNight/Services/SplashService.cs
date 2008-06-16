@@ -18,8 +18,12 @@ using BrettRyan.LateNight.Services;
 namespace BrettRyan.LateNight.Services {
 
     /// <summary>
-    ///
+    /// Service for modules to 
     /// </summary>
+    /// <remarks>
+    /// I need to figure out how to background load modules before I can have
+    /// them interact with the splash screen.
+    /// </remarks>
     public class SplashService : ISplashService {
 
         /// <summary>

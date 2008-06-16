@@ -16,10 +16,16 @@ using System.Text;
 namespace BrettRyan.LateNight.Services {
 
     /// <summary>
-    ///
+    /// Service for other modules to interact with the startup splash screen.
     /// </summary>
     public interface ISplashService {
 
+        /// <summary>
+        /// Set a message during startup.
+        /// </summary>
+        /// <param name="message">
+        /// Message to be set in the splash screen.
+        /// </param>
         void SetMessage(string message);
 
     }

@@ -18,6 +18,9 @@ namespace BrettRyan.LateNight {
                 "pass".Equals(pass);
         }
 
+        /// <summary>
+        /// Creates a new instance of <c>App</c>
+        /// </summary>
         public App() {
             Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             LogOnScreen logon = new LogOnScreen();
