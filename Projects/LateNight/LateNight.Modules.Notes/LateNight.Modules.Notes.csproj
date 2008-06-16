@@ -61,6 +61,9 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -68,15 +71,26 @@
   <ItemGroup>
     <Compile Include="NotesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\NotesBrowser.xaml.cs">
+      <DependentUpon>NotesBrowser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotesBrowserModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LateNight.Infrastructure\LateNight.Infrastructure.csproj">
+      <Project>{6B30593C-B386-4289-AC4E-08559A7E336C}</Project>
+      <Name>LateNight.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LateNight.Modules.Notes.Interface\LateNight.Modules.Notes.Interface.csproj">
       <Project>{43B29606-EEB9-4DEF-99E9-A2484120CA4D}</Project>
       <Name>LateNight.Modules.Notes.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\" />
+    <Page Include="Views\NotesBrowser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
