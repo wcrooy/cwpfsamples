@@ -15,6 +15,11 @@ using System.Text;
 using Microsoft.Practices.Composite.Modularity;
 using Microsoft.Practices.Unity;
 
+using BrettRyan.LateNight.Constants;
+using BrettRyan.LateNight.DocumentModel;
+using BrettRyan.LateNight.Modules.Notes.Services;
+using BrettRyan.LateNight.Modules.Notes.Views;
+
 
 namespace BrettRyan.LateNight.Modules.Notes {
 
@@ -25,22 +30,35 @@ namespace BrettRyan.LateNight.Modules.Notes {
     public class NotesModule : IModule {
 
         private readonly IUnityContainer container;
+        private readonly IDocumentController systemDocumentController;
 
         /// <summary>
         /// Creates a new instance of <c>NotesModule</c>.
         /// </summary>
         public NotesModule(IUnityContainer container) {
             this.container = container;
+            systemDocumentController = container.Resolve<IDocumentController>(
+                ControllerNames.SystemDocumentController);
         }
 
 
         #region IModule Members
 
         public void Initialize() {
+            container.RegisterType<INoteService, StaticNoteService>(
+                // This will register the type as a singleton instance.
+                new ContainerControlledLifetimeManager());
+            container.RegisterType<NotesBrowserModel>(
+                new ContainerControlledLifetimeManager());
+
+            INoteService noteService = container.Resolve<INoteService>();
+
+            NotesBrowserModel model = container.Resolve<NotesBrowserModel>();
+            systemDocumentController.OpenDocument(model);
         }
 
         #endregion
+
     }
 
 }
-

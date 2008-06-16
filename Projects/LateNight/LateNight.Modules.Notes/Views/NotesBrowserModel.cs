@@ -9,11 +9,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
 
+using Microsoft.Practices.Composite.Wpf.Commands;
+using Microsoft.Practices.Unity;
+
+using BrettRyan.LateNight.Constants;
 using BrettRyan.LateNight.DocumentModel;
+using BrettRyan.LateNight.Modules.Notes.Entities;
+using BrettRyan.LateNight.Modules.Notes.Services;
 
 
 namespace BrettRyan.LateNight.Modules.Notes.Views {
@@ -24,12 +31,49 @@ namespace BrettRyan.LateNight.Modules.Notes.Views {
     public class NotesBrowserModel : AbstractDocument {
 
         private FrameworkElement view;
+        private INoteService service;
+        private IDocumentController documentController;
 
         /// <summary>
         /// Creates a new instance of <c>NotesBrowserModel</c>.
         /// </summary>
-        public NotesBrowserModel() {
-            this.view = new FrameworkElement();
+        public NotesBrowserModel(IUnityContainer container) {
+            OpenNoteCommand = new DelegateCommand<Note>(OpenNote);
+
+            view = new NotesBrowser(this);
+            service = container.Resolve<INoteService>();
+            documentController = container.Resolve<IDocumentController>(
+                ControllerNames.DocumentController);
+
+            Notes = new ObservableCollection<Note>();
+            LoadAllNotes();
+        }
+
+        /// <summary>
+        /// Command which will open a note as a ntoe editor
+        /// </summary>
+        public DelegateCommand<Note> OpenNoteCommand {
+            get;
+            private set;
+        }
+
+        private void OpenNote(Note note) {
+            MessageBox.Show(String.Format(
+                "Open note command fired for : {0}", note));
+        }
+
+        private void LoadAllNotes() {
+            IEnumerable<Note> res = service.GetAllNotes();
+            foreach (Note note in res) {
+                Notes.Add(note);
+            }
+        }
+
+
+
+        public ObservableCollection<Note> Notes {
+            get;
+            private set;
         }
 
 
