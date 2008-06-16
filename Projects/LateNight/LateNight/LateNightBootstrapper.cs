@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Threading;
 using System.Windows;
 
 using Microsoft.Practices.Composite.Modularity;
@@ -32,8 +33,19 @@ namespace BrettRyan.LateNight {
         /// Creates a new instance of <c>LateNightBootstrapper</c>.
         /// </summary>
         public LateNightBootstrapper() {
+            App.Current.SessionEnding += new SessionEndingCancelEventHandler(DoSessionEnding);
+            //App.Current.DispatcherUnhandledException +=
+            //    new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(DoUnhandledException);
         }
-        
+
+        private void DoUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e) {
+            // TODO : Place logic in here that allows modules to alert the
+            //        user of a potential loss of data.
+        }
+
+        private void DoSessionEnding(object sender, SessionEndingCancelEventArgs e) {
+        }
+
         /// <summary>
         /// Configures the container.
         /// </summary>
@@ -52,13 +64,23 @@ namespace BrettRyan.LateNight {
             Container.RegisterType<LateNightShellModel>(
                 new ContainerControlledLifetimeManager());
 
+            // TODO: Create a new document manager that manages multiple
+            //       document controller instances. I have an idea of using
+            //       a tree of controllers where controllers may be grouped
+            //       together. This concept is for a visual studio style
+            //       window docking mechanism.
             Container.RegisterInstance<IDocumentController>(
-                ControllerNames.DocumentController, new DocumentController());
+                ControllerNames.DocumentController,
+                new DocumentController());
+            Container.RegisterInstance<IDocumentController>(
+                ControllerNames.SystemDocumentController,
+                new DocumentController());
         }
 
         protected override DependencyObject CreateShell() {
             LateNightShellModel model = Container.Resolve<LateNightShellModel>();
             LateNightShell shell = new LateNightShell(model);
+            Container.RegisterInstance<LateNightShell>(shell);
             shell.DataContext = model;
             shell.Show();
             return shell;
