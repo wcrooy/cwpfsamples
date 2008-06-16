@@ -22,7 +22,8 @@ using BrettRyan.LateNight.Infrastructure.Constants;
 namespace BrettRyan.LateNight.Modules.Welcome {
 
     /// <summary>
-    ///
+    /// Module used to show a welcome screen to the user when the application
+    /// starts.
     /// </summary>
     [Module(ModuleName="Late Night Welcome Module", StartupLoaded=true)]
     public class WelcomeModule : IModule {
