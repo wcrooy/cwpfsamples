@@ -1,7 +1,7 @@
 ﻿/*
  * LateNightAboutView.cs    6/15/2008 3:36:44 AM
  *
- * Copyright 2008 John Sands (Australia) Ltd. All rights reserved.
+ * Copyright 2008 Brett Ryan. All rights reserved.
  * Use is subject to license terms
  *
  * Author: Brett Ryan
