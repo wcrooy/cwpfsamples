@@ -20,6 +20,7 @@ using Microsoft.Practices.Unity;
 
 using BrettRyan.LateNight.Constants;
 using BrettRyan.LateNight.DocumentModel;
+using BrettRyan.LateNight.Services;
 
 
 namespace BrettRyan.LateNight {
@@ -63,6 +64,7 @@ namespace BrettRyan.LateNight {
             // This will register the type as a singleton instance.
             Container.RegisterType<LateNightShellModel>(
                 new ContainerControlledLifetimeManager());
+            Container.RegisterType<IMessageService, BasicMessageService>();
 
             // TODO: Create a new document manager that manages multiple
             //       document controller instances. I have an idea of using
