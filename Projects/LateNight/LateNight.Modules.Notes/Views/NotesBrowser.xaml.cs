@@ -1,10 +1,10 @@
 ﻿/*
  * NotesBrowser.cs    6/16/2008 9:29:03 PM
  *
- * Copyright 2008  All rights reserved.
+ * Copyright 2008 Brett Ryan All rights reserved.
  * Use is subject to license terms
  *
- * Author: bryan
+ * Author: Brett Ryan
  */
 
 using System;
