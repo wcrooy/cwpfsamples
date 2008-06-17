@@ -36,17 +36,23 @@ namespace BrettRyan.LateNight.Modules.Notes.Entities {
         /// back to using this value.
         /// </para>
         /// </remarks>
-        private Guid gid = Guid.NewGuid();
+        private Guid gid = Guid.Empty;
+
+        private int noteId;
 
         /// <summary>
         /// Creates a new instance of <c>Note</c>.
         /// </summary>
         public Note() {
+            gid = Guid.NewGuid();
         }
 
         /// <summary>
         /// Creates a new instance of <c>Note</c>.
         /// </summary>
+        /// <remarks>
+        /// You MUST NOT call this constructor if you are intending to use a
+        /// </remarks>
         /// <param name="noteId">Note ID</param>
         public Note(int noteId) {
             NoteID = noteId;
@@ -75,8 +81,14 @@ namespace BrettRyan.LateNight.Modules.Notes.Entities {
         /// Note Identifier.
         /// </summary>
         public int NoteID {
-            get;
-            set;
+            get { return noteId; }
+            set {
+                if (value < 1) {
+                    throw new ArgumentException(
+                        "Value must be greater than zero.", "noteId");
+                }
+                noteId = value;
+            }
         }
 
         /// <summary>
@@ -126,7 +138,7 @@ namespace BrettRyan.LateNight.Modules.Notes.Entities {
         /// Note object to compare against.
         /// </param>
         public bool Equals(Note other) {
-            if (NoteID > 0) {
+            if (Guid.Empty.Equals(gid)) {
                 return NoteID == other.NoteID;
             } else {
                 return gid.Equals(other.gid);
@@ -139,7 +151,7 @@ namespace BrettRyan.LateNight.Modules.Notes.Entities {
         /// </summary>
         /// <returns>The hash for this object.</returns>
         public override int GetHashCode() {
-            if (NoteID > 0) {
+            if (Guid.Empty.Equals(gid)) {
                 return 24 * NoteID;
             } else {
                 return 24 * gid.GetHashCode();
