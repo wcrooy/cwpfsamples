@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
+
 namespace BrettRyan.LateNight {
 
     /// <summary>
@@ -12,6 +13,17 @@ namespace BrettRyan.LateNight {
     /// </summary>
     public partial class App : Application {
 
+        /// <summary>
+        /// Tests if a user and password can be authorized.
+        /// </summary>
+        /// <remarks>
+        /// This is a dummy method used only for demonstration purposes.
+        /// </remarks>
+        /// <param name="user">Username.</param>
+        /// <param name="pass">Password.</param>
+        /// <returns>
+        /// <c>True</c> if user = "admin" and pass = "pass"
+        /// </returns>
         private bool Authenticate(string user, string pass) {
             return
                 "admin".Equals(user) &&
