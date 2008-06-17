@@ -196,4 +196,3 @@ namespace BrettRyan.LateNight.Modules.Notes.Views {
     }
 
 }
-
