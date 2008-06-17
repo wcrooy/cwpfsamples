@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 using Microsoft.Practices.Composite.Events;
 using Microsoft.Practices.Composite.Wpf.Commands;
@@ -29,6 +30,7 @@ namespace BrettRyan.LateNight {
     internal sealed class LateNightShellModel : INotifyPropertyChanged {
 
         private IUnityContainer container;
+        private Visibility menuVisibility;
 
         /// <summary>
         /// Creates a new instance of <c>LateNightShellModel</c>.
@@ -54,6 +56,24 @@ namespace BrettRyan.LateNight {
                 += new EventHandler<DataEventArgs<AbstractDocument>>(DoReevaluateCloseCurrentDocumentCommand);
             DocumentController.DocumentClosed
                 += new EventHandler<DataEventArgs<AbstractDocument>>(DoReevaluateCloseCurrentDocumentCommand);
+            
+            Properties.Settings.Default.PropertyChanged += new PropertyChangedEventHandler(DoSettingsPropertyChanged);
+            if (Properties.Settings.Default.AlwaysShowMenu) {
+                MenuVisibility = Visibility.Visible;
+            } else {
+                MenuVisibility = Visibility.Collapsed;
+            }
+        }
+
+        private void DoSettingsPropertyChanged(object sender, PropertyChangedEventArgs e) {
+            if ("AlwaysShowMenu".Equals(e.PropertyName)) {
+                OnPropertyChanged("AlwaysShowMenu");
+                if (Properties.Settings.Default.AlwaysShowMenu) {
+                    MenuVisibility = Visibility.Visible;
+                } else {
+                    MenuVisibility = Visibility.Collapsed;
+                }
+            }
         }
 
         private void DoReevaluateCloseCurrentDocumentCommand(object sender, DataEventArgs<AbstractDocument> e) {
@@ -83,6 +103,21 @@ namespace BrettRyan.LateNight {
             get;
             private set;
         }
+
+        public Visibility MenuVisibility {
+            get { return menuVisibility; }
+            set {
+                if (menuVisibility != value) {
+                    menuVisibility = value;
+                    OnPropertyChanged("MenuVisibility");
+                }
+            }
+        }
+
+        public bool AlwaysShowMenu {
+            get { return Properties.Settings.Default.AlwaysShowMenu; }
+        }
+
 
         /// <summary>
         /// Command which will open a line-plan as a line-plan editor

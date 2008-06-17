@@ -22,5 +22,17 @@ namespace BrettRyan.LateNight.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AlwaysShowMenu {
+            get {
+                return ((bool)(this["AlwaysShowMenu"]));
+            }
+            set {
+                this["AlwaysShowMenu"] = value;
+            }
+        }
     }
 }

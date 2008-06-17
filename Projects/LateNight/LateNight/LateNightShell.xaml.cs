@@ -57,6 +57,12 @@ namespace BrettRyan.LateNight {
         }
 
         private void DoKeyUpHandler(object sender, KeyEventArgs e) {
+            if (Properties.Settings.Default.AlwaysShowMenu) {
+                if (xMainMenu.Visibility != Visibility.Visible) {
+                    xMainMenu.Visibility = Visibility.Visible;
+                }
+                return;
+            }
             if (xMainMenu.IsKeyboardFocusWithin) {
                 return;
             }
@@ -67,6 +73,9 @@ namespace BrettRyan.LateNight {
         }
 
         private void DoMenuLostFocus(object sender, DependencyPropertyChangedEventArgs e) {
+            if (Properties.Settings.Default.AlwaysShowMenu) {
+                return;
+            }
             if (!xMainMenu.IsKeyboardFocusWithin) {
                 if (xMainMenu.Visibility != Visibility.Visible) {
                     return;
@@ -83,6 +92,11 @@ namespace BrettRyan.LateNight {
                     Model.CloseDocumentCommand.Execute(doc);
                 }
             }
+        }
+
+        private void DoAlwaysShowMenuClick(object sender, RoutedEventArgs e) {
+            Properties.Settings.Default.AlwaysShowMenu
+                = !Properties.Settings.Default.AlwaysShowMenu;
         }
 
     }

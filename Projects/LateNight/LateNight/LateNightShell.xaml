@@ -100,10 +100,16 @@
                        FontFamily="Calibri"
                        Content="{x:Static local:CommonModel.VersionTextAsDateTime}"/>
             </StackPanel>
-            <Menu x:Name="xMainMenu" Visibility="Collapsed"
+            <Menu x:Name="xMainMenu" Visibility="{Binding MenuVisibility}"
                   IsKeyboardFocusWithinChanged="DoMenuLostFocus">
                 <MenuItem Header="_File">
                     <MenuItem Header="E_xit" Command="{Binding ExitApplicationCommand}"/>
+                </MenuItem>
+                <MenuItem Header="_View">
+                    <MenuItem Header="_Always Show Menu"
+                              IsChecked="{Binding AlwaysShowMenu, Mode=OneWay}"
+                              Click="DoAlwaysShowMenuClick"
+                              />
                 </MenuItem>
                 <MenuItem Header="_Window">
                     <MenuItem Header="_Close current document"
