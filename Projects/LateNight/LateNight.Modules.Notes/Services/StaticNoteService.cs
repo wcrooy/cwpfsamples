@@ -45,6 +45,7 @@ namespace BrettRyan.LateNight.Modules.Notes.Services {
         static class StaticNoteDataStore {
 
             private static int id;
+            private static int docNum;
             private static Dictionary<int, Note> notes;
 
             static StaticNoteDataStore() {
@@ -87,9 +88,9 @@ namespace BrettRyan.LateNight.Modules.Notes.Services {
             }
 
             public static Note Create() {
-                int id = NextID();
-                Note note = new Note(id, "New Note #" + id);
-                notes.Add(note.NoteID, note);
+                Note note = new Note() {
+                    Title = "New Note #" + ++docNum
+                };
                 return note;
             }
 

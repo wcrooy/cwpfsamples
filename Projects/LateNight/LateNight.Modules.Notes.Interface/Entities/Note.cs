@@ -21,6 +21,24 @@ namespace BrettRyan.LateNight.Modules.Notes.Entities {
     public class Note {
 
         /// <summary>
+        /// Transient note identifier.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This is here to help with new notes that do not have not been
+        /// saved to a database.
+        /// </para>
+        /// <para>
+        /// This is a transient value that will not be persisted.
+        /// </para>
+        /// <para>
+        /// Test for equality should first check for NoteID > 0, if not fall
+        /// back to using this value.
+        /// </para>
+        /// </remarks>
+        private Guid gid = Guid.NewGuid();
+
+        /// <summary>
         /// Creates a new instance of <c>Note</c>.
         /// </summary>
         public Note() {
@@ -108,7 +126,11 @@ namespace BrettRyan.LateNight.Modules.Notes.Entities {
         /// Note object to compare against.
         /// </param>
         public bool Equals(Note other) {
-            return NoteID == other.NoteID;
+            if (NoteID > 0) {
+                return NoteID == other.NoteID;
+            } else {
+                return gid.Equals(other.gid);
+            }
         }
         #endregion
 
@@ -117,7 +139,11 @@ namespace BrettRyan.LateNight.Modules.Notes.Entities {
         /// </summary>
         /// <returns>The hash for this object.</returns>
         public override int GetHashCode() {
-            return 24 * NoteID;
+            if (NoteID > 0) {
+                return 24 * NoteID;
+            } else {
+                return 24 * gid.GetHashCode();
+            }
         }
 
         /// <summary>
