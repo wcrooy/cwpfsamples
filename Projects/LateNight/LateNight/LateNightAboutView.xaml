@@ -113,12 +113,12 @@
 
     <StackPanel Orientation="Vertical">
         <Label HorizontalAlignment="Stretch"
-                   HorizontalContentAlignment="Center"
-                   Foreground="#FFD3D9EE"
-                   FontWeight="Normal"
-                   FontSize="16"
-                   FontFamily="Calibri"
-                   Content="About Late Night">
+               HorizontalContentAlignment="Center"
+               Foreground="#FFD3D9EE"
+               FontWeight="Normal"
+               FontSize="16"
+               FontFamily="Calibri"
+               Content="About Late Night">
             <Label.Background>
                 <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                     <GradientStop Color="#FF293262" Offset="0"/>
@@ -176,8 +176,7 @@
                  SelectionMode="Single"
                  SelectedItem="{Binding SelectedInfo}"
                  ItemsSource="{Binding ModuleInfos}"
-                 IsSynchronizedWithCurrentItem="True"
-                 >
+                 IsSynchronizedWithCurrentItem="True">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Label Padding="1" Content="{Binding ModuleName}"/>
