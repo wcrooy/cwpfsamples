@@ -59,28 +59,35 @@
         			</ColorAnimationUsingKeyFrames>
         		</Storyboard>
         	</ControlTemplate.Resources>
-            
-        	<Border x:Name="border" Background="{x:Null}" BorderBrush="#00000000" BorderThickness="1">
-        		<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        	</Border>
-        	<ControlTemplate.Triggers>
-        		<EventTrigger RoutedEvent="Mouse.MouseLeave">
-        			<BeginStoryboard Storyboard="{StaticResource OnMouseLeave1}"
-                                     x:Name="OnMouseLeave1_BeginStoryboard"/>
-        		</EventTrigger>
-        		<EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="border">
-        			<BeginStoryboard x:Name="OnMouseEnter2_BeginStoryboard"
-                                     Storyboard="{StaticResource OnMouseEnter2}"/>
-        		</EventTrigger>
-        	</ControlTemplate.Triggers>
-        </ControlTemplate>
 
+            <ControlTemplate.Triggers>
+                <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                    <BeginStoryboard Storyboard="{StaticResource OnMouseLeave1}"
+                                     x:Name="OnMouseLeave1_BeginStoryboard"/>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                    <BeginStoryboard x:Name="OnMouseEnter2_BeginStoryboard"
+                                     Storyboard="{StaticResource OnMouseEnter2}"/>
+                </EventTrigger>
+            </ControlTemplate.Triggers>
+            
+            <Border Padding="3,1,3,1"
+                    x:Name="border"
+                    Background="{x:Null}"
+                    BorderBrush="#00000000"
+                    BorderThickness="1">
+        		<ContentPresenter VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"/>
+        	</Border>
+        </ControlTemplate>
+        
     </Window.Resources>
     
     <DockPanel>
         <StackPanel DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Center"
+                        >
                 <StackPanel.Background>
                     <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                         <GradientStop Color="#FF293262" Offset="0"/>
@@ -184,21 +191,23 @@
                         ContentTemplate="{StaticResource DocumentContentTemplate}"
                         SelectedItem="{Binding Path=DocumentController.CurrentDocument}">
                 <TabControl.ItemTemplate>
+                    
                     <DataTemplate DataType="{x:Type dm:AbstractDocument}">
                         <DockPanel ToolTip="{Binding Path=Description}">
-                            <Label Padding="0"
-                               Content="{Binding Path=DocumentTitle}"
-                               VerticalAlignment="Center" />
                             <!-- Wire up the command to the document manager. -->
-                            <Button VerticalAlignment="Center"
-                                Content="X" FontSize="8"
-                                Margin="4,0,0,0"
-                                Padding="5"
-                                Template="{DynamicResource TabCloseButtonTemplate}"
-                                CommandParameter="{Binding .}"
-                                Click="DoCloseDocumentButtonClicked"/>
+                            <Button DockPanel.Dock="Right"
+                                    VerticalAlignment="Center"
+                                    Content="X" FontSize="8"
+                                    Margin="4,0,0,0"
+                                    Template="{DynamicResource TabCloseButtonTemplate}"
+                                    CommandParameter="{Binding .}"
+                                    Click="DoCloseDocumentButtonClicked"/>
+                            <ContentPresenter Margin="0"
+                                              Content="{Binding Path=DocumentTitle}"
+                                              VerticalAlignment="Center" />
                         </DockPanel>
                     </DataTemplate>
+                    
                 </TabControl.ItemTemplate>
             </TabControl>
             
