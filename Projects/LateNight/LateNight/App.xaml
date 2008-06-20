@@ -3,5 +3,71 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
         
+    	<LinearGradientBrush x:Key="MainTitleGradientBrush" EndPoint="1,0.5" StartPoint="0,0.5">
+    		<GradientStop Color="#FF293262" Offset="0"/>
+    		<GradientStop Color="#FF5A6DCD" Offset="0.4"/>
+    		<GradientStop Color="#FF5A6DCD" Offset="0.6"/>
+    		<GradientStop Color="#FF293262" Offset="1"/>
+    	</LinearGradientBrush>
+
+        <SolidColorBrush x:Key="MainStatusBarForegroundBrush" Color="#FFE9EEF0"/>
+        
+        <LinearGradientBrush x:Key="MainStatusBarBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF484B4D" Offset="0"/>
+            <GradientStop Color="#FFFFFFFF" Offset="0.01"/>
+            <GradientStop Color="#FF787B7D" Offset="0.01"/>
+            <GradientStop Color="#FF3A3E42" Offset="0.5"/>
+            <GradientStop Color="#FF070F19" Offset="0.5"/>
+            <GradientStop Color="#FF04090F" Offset="1"/>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="MainWindowBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+        	<GradientStop Color="#FFF2F2F2" Offset="0"/>
+        	<GradientStop Color="#FF717477" Offset="0.346"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="TitleShadowBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF525252" Offset="0"/>
+            <GradientStop Color="#00FFFFFF" Offset="1"/>
+        </LinearGradientBrush>
+        
+        <Style TargetType="{x:Type GridSplitter}">
+            <Setter Property="Background" Value="#FFF0F0F0"/>
+            <Setter Property="BorderBrush" Value="#FF8C8E94"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0,35,0,10"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+        
+        <Style TargetType="PasswordBox">
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="MinWidth" Value="75"/>
+        </Style>
+
+        <Style TargetType="{x:Type ResizeGrip}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#80d0d0d0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ResizeGrip}">
+                        <Grid SnapsToDevicePixels="True" Background="{TemplateBinding Background}">
+                            <Path Fill="{TemplateBinding Foreground}"
+								  HorizontalAlignment="Right"
+								  Margin="0,0,2,2" VerticalAlignment="Bottom"
+                                  Data="M13,0 L13,13 0,13"
+								  Width="13" Height="13"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Application.Resources>
 </Application>
