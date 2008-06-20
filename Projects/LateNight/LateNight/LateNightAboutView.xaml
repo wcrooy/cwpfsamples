@@ -93,10 +93,6 @@
             </ScrollViewer>
         </DataTemplate>
 
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="4"/>
-            <Setter Property="MinWidth" Value="75"/>
-        </Style>
         <Style TargetType="Label">
             <Setter Property="Padding" Value="4,1,4,0"/>
         </Style>
@@ -118,24 +114,8 @@
                FontWeight="Normal"
                FontSize="16"
                FontFamily="Calibri"
-               Content="About Late Night">
-            <Label.Background>
-                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                    <GradientStop Color="#FF293262" Offset="0"/>
-                    <GradientStop Color="#FF5A6DCD" Offset="0.4"/>
-                    <GradientStop Color="#FF5A6DCD" Offset="0.6"/>
-                    <GradientStop Color="#FF293262" Offset="1"/>
-                </LinearGradientBrush>
-            </Label.Background>
-        </Label>
-        <Border Height="5">
-            <Border.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF525252" Offset="0"/>
-                    <GradientStop Color="#00FFFFFF" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
-        </Border>
+               Content="About Late Night" Background="{DynamicResource MainTitleGradientBrush}"/>
+        <Border Height="5" Background="{DynamicResource TitleShadowBackgroundBrush}"/>
         
         <Grid Width="Auto" Height="Auto" HorizontalAlignment="Center" Margin="10">
             <Grid.ColumnDefinitions>

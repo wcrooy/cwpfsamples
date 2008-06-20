@@ -2,16 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:BrettRyan.LateNight"
-        Title="Starting Late Night..." Height="275" Width="275"
+        Title="Starting Late Night..."
+        Width="275" Height="275"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        ShowInTaskbar="False"
-        Topmost="True"
-        Focusable="False"
         BorderThickness="1"
-        BorderBrush="#FF376991"
-        >
+        BorderBrush="#FF376991">
     
     <Window.Resources>
         <Style TargetType="Label">
@@ -25,6 +22,7 @@
 			<GradientStop Color="SteelBlue" Offset="1"/>
 		</LinearGradientBrush>
 	</Window.Background>
+    
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />

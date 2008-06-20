@@ -14,26 +14,12 @@ namespace BrettRyan.LateNight {
     public partial class App : Application {
 
         /// <summary>
-        /// Tests if a user and password can be authorized.
-        /// </summary>
-        /// <remarks>
-        /// This is a dummy method used only for demonstration purposes.
-        /// </remarks>
-        /// <param name="user">Username.</param>
-        /// <param name="pass">Password.</param>
-        /// <returns>
-        /// <c>True</c> if user = "admin" and pass = "pass"
-        /// </returns>
-        private bool Authenticate(string user, string pass) {
-            return
-                "admin".Equals(user) &&
-                "pass".Equals(pass);
-        }
-
-        /// <summary>
         /// Creates a new instance of <c>App</c>
         /// </summary>
         public App() {
+        }
+
+        protected override void OnStartup(StartupEventArgs e) {
             Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             LogOnScreen logon = new LogOnScreen();
 #if DEBUG
@@ -52,6 +38,25 @@ namespace BrettRyan.LateNight {
                     MessageBoxImage.Error);
                 Shutdown(1);
             }
+
+            base.OnStartup(e);
+        }
+
+        /// <summary>
+        /// Tests if a user and password can be authorized.
+        /// </summary>
+        /// <remarks>
+        /// This is a dummy method used only for demonstration purposes.
+        /// </remarks>
+        /// <param name="user">Username.</param>
+        /// <param name="pass">Password.</param>
+        /// <returns>
+        /// <c>True</c> if user = "admin" and pass = "pass"
+        /// </returns>
+        private bool Authenticate(string user, string pass) {
+            return
+                "admin".Equals(user) &&
+                "pass".Equals(pass);
         }
 
         private void StartupContainer() {

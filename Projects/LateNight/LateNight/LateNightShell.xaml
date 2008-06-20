@@ -8,29 +8,10 @@
     MinWidth="300" MinHeight="200"
     KeyDown="DoKeyDownHandler"
     KeyUp="DoKeyUpHandler"
-    ResizeMode="CanResizeWithGrip"
-    >
+    ResizeMode="CanResizeWithGrip">
     
     <Window.Resources>
         
-        <Style TargetType="{x:Type ResizeGrip}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#80d0d0d0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ResizeGrip}">
-                        <Grid SnapsToDevicePixels="True" Background="{TemplateBinding Background}">
-                            <Path Fill="{TemplateBinding Foreground}"
-								  HorizontalAlignment="Right"
-								  Margin="0,0,2,2" VerticalAlignment="Bottom"
-                                  Data="M13,0 L13,13 0,13"
-								  Width="13" Height="13"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <DataTemplate x:Key="DocumentContentTemplate">
             <ContentControl Content="{Binding Path=View}"/>
         </DataTemplate>
@@ -42,19 +23,20 @@
 
         <ControlTemplate x:Key="TabCloseButtonTemplate"
 		                 TargetType="{x:Type Button}">
-            
-        	<ControlTemplate.Resources>
-        		<Storyboard x:Key="OnMouseEnter2">
-                    <ColorAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                  Storyboard.TargetName="border"
-                                                  Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+            <ControlTemplate.Resources>
+        		<Storyboard x:Key="TabCloseButton_OnMouseEnter">
+                    <ColorAnimationUsingKeyFrames
+                        BeginTime="00:00:00"
+                        Storyboard.TargetName="border"
+                        Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
                         <SplineColorKeyFrame KeyTime="00:00:00.025" Value="#70000000"/>
                     </ColorAnimationUsingKeyFrames>
                 </Storyboard>
-        		<Storyboard x:Key="OnMouseLeave1">
-        			<ColorAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                  Storyboard.TargetName="border"
-                                                  Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+        		<Storyboard x:Key="TabCloseButton_OnMouseLeave">
+        			<ColorAnimationUsingKeyFrames
+                        BeginTime="00:00:00"
+                        Storyboard.TargetName="border"
+                        Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
         				<SplineColorKeyFrame KeyTime="00:00:00.025" Value="#00000000"/>
         			</ColorAnimationUsingKeyFrames>
         		</Storyboard>
@@ -62,40 +44,30 @@
 
             <ControlTemplate.Triggers>
                 <EventTrigger RoutedEvent="Mouse.MouseLeave">
-                    <BeginStoryboard Storyboard="{StaticResource OnMouseLeave1}"
-                                     x:Name="OnMouseLeave1_BeginStoryboard"/>
+                    <BeginStoryboard x:Name="TabCloseButton_OnMouseLeave_BeginStoryboard"
+                                     Storyboard="{StaticResource TabCloseButton_OnMouseLeave}"/>
                 </EventTrigger>
                 <EventTrigger RoutedEvent="Mouse.MouseEnter">
-                    <BeginStoryboard x:Name="OnMouseEnter2_BeginStoryboard"
-                                     Storyboard="{StaticResource OnMouseEnter2}"/>
+                    <BeginStoryboard x:Name="TabCloseButton_OnMouseEnter_BeginStoryboard"
+                                     Storyboard="{StaticResource TabCloseButton_OnMouseEnter}"/>
                 </EventTrigger>
             </ControlTemplate.Triggers>
             
             <Border Padding="3,1,3,1"
                     x:Name="border"
-                    Background="{x:Null}"
                     BorderBrush="#00000000"
                     BorderThickness="1">
-        		<ContentPresenter VerticalAlignment="Center"
+                <ContentPresenter VerticalAlignment="Center"
                                   HorizontalAlignment="Center"/>
-        	</Border>
+            </Border>
         </ControlTemplate>
-        
     </Window.Resources>
     
     <DockPanel>
         <StackPanel DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center"
-                        >
-                <StackPanel.Background>
-                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                        <GradientStop Color="#FF293262" Offset="0"/>
-                        <GradientStop Color="#FF5A6DCD" Offset="0.4"/>
-                        <GradientStop Color="#FF5A6DCD" Offset="0.6"/>
-                        <GradientStop Color="#FF293262" Offset="1"/>
-                    </LinearGradientBrush>
-                </StackPanel.Background>
+                        Background="{DynamicResource MainTitleGradientBrush}">
                 <Label Foreground="#FFC3C9E9"
                        FontWeight="Normal"
                        FontSize="16"
@@ -126,37 +98,16 @@
                     <MenuItem Header="_About" Command="{Binding ShowAboutCommand}"/>
                 </MenuItem>
             </Menu>
-            <Border Height="5">
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF525252" Offset="0"/>
-                        <GradientStop Color="#00FFFFFF" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-            </Border>
+            <Border Height="5" Background="{DynamicResource TitleShadowBackgroundBrush}"/>
         </StackPanel>
 
-        <StatusBar Height="23" DockPanel.Dock="Bottom" Foreground="#FFE9EEF0">
-            <StatusBar.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF484B4D" Offset="0"/>
-                    <GradientStop Color="#FFFFFFFF" Offset="0.01"/>
-                    <GradientStop Color="#FF787B7D" Offset="0.014"/>
-                    <GradientStop Color="#FF3A3E42" Offset="0.5"/>
-                    <GradientStop Color="#FF070F19" Offset="0.5"/>
-                    <GradientStop Color="#FF04090F" Offset="1"/>
-                </LinearGradientBrush>
-            </StatusBar.Background>
+        <StatusBar Height="23" DockPanel.Dock="Bottom"
+                   Foreground="{DynamicResource MainStatusBarForegroundBrush}"
+                   Background="{DynamicResource MainStatusBarBackgroundBrush}">
             <StatusBarItem Content="Ready"/>
         </StatusBar>
 
-        <Grid>
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFF2F2F2" Offset="0"/>
-                    <GradientStop Color="#FF717477" Offset="0.346"/>
-                </LinearGradientBrush>
-            </Grid.Background>
+        <Grid Background="{DynamicResource MainWindowBackgroundBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MinWidth="175" Width="Auto"/>
                 <ColumnDefinition Width="Auto" />
@@ -171,20 +122,16 @@
                     <DataTemplate DataType="{x:Type dm:AbstractDocument}">
                         <DockPanel ToolTip="{Binding Path=Description}">
                             <Label Padding="0"
-                               Content="{Binding Path=DocumentTitle}"
-                               VerticalAlignment="Center" />
+                                   Content="{Binding Path=DocumentTitle}"
+                                   VerticalAlignment="Center" />
                         </DockPanel>
                     </DataTemplate>
                 </TabControl.ItemTemplate>
             </TabControl>
 
             <GridSplitter Grid.Column="1" Width="5"
-                          Margin="0,35,0,10"
                           ResizeBehavior="PreviousAndNext"
-                          ResizeDirection="Columns"
-                          Background="#FFF0F0F0"
-                          BorderBrush="#FF8C8E94"
-                          BorderThickness="1,1,1,1" />
+                          ResizeDirection="Columns"/>
 
             <TabControl Grid.Column="2" Margin="5"
                         ItemsSource="{Binding Source={StaticResource DocumentSource}}"
@@ -199,6 +146,7 @@
                                     VerticalAlignment="Center"
                                     Content="X" FontSize="8"
                                     Margin="4,0,0,0"
+                                    MinWidth="10"
                                     Template="{DynamicResource TabCloseButtonTemplate}"
                                     CommandParameter="{Binding .}"
                                     Click="DoCloseDocumentButtonClicked"/>
