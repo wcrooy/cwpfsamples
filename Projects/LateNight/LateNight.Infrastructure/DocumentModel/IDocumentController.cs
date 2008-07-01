@@ -17,6 +17,9 @@ using Microsoft.Practices.Composite.Events;
 
 namespace BrettRyan.LateNight.DocumentModel {
 
+    /// <summary>
+    /// Document controller interface.
+    /// </summary>
     public interface IDocumentController {
 
         /// <summary>
