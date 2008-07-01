@@ -65,8 +65,10 @@
     <Compile Include="DocumentModel\IDocumentController.cs" />
     <Compile Include="ModelState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EntityNotFoundException.cs" />
     <Compile Include="Services\IMessageService.cs" />
     <Compile Include="Services\ISplashService.cs" />
+    <Compile Include="Services\ServiceException.cs" />
     <Compile Include="VersionHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
