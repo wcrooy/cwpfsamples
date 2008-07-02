@@ -126,6 +126,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Services\BasicMessageService.cs" />
+    <Compile Include="Services\EntityTranslatorService.cs" />
     <Compile Include="Services\SimpleSecurityService.cs" />
     <Compile Include="Services\SplashService.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
