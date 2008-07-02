@@ -31,4 +31,3 @@ namespace BrettRyan.LateNight.Services {
     }
 
 }
-
