@@ -3,7 +3,15 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Security.Authentication;
+using System.Security.Principal;
+using System.Threading;
 using System.Windows;
+
+using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.Configuration;
+
+using BrettRyan.LateNight.Services;
 
 
 namespace BrettRyan.LateNight {
@@ -19,55 +27,82 @@ namespace BrettRyan.LateNight {
         public App() {
         }
 
+        protected IUnityContainer GetContainer() {
+            IUnityContainer container = new UnityContainer();
+            UnityConfigurationSection section
+                = ConfigurationManager.GetSection("unity") as UnityConfigurationSection;
+            if (section != null && section.Containers.Default != null) {
+                section.Containers.Default.Configure(container);           
+            }
+            return container;
+        }
+
         protected override void OnStartup(StartupEventArgs e) {
             Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-            LogOnScreen logon = new LogOnScreen();
-#if DEBUG
-            logon.HintVisible = true;
-#endif
-            bool? res = logon.ShowDialog();
-            if (!res ?? true) {
-                Shutdown(1);
-            } else if (Authenticate(logon.UserName, logon.Password)) {
-                StartupContainer();
-            } else {
+
+            IUnityContainer container;
+            try {
+                container = GetContainer();
+            } catch (TypeLoadException ex) {
                 MessageBox.Show(
-                    "Application is exiting due to invalid credentials",
-                    "Application Exit",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                    "There was an error with your application configuration "
+                    + "file, this may be due to an error in your unity "
+                    + "configuration if it has been specified.\n\n"
+                    + ex.Message,
+                    "Type Load Failed",
+                    MessageBoxButton.OK, MessageBoxImage.Error
+                    );
                 Shutdown(1);
+                return;
             }
 
-            base.OnStartup(e);
+            try {
+                ISecurityService secSvc = container.Resolve<ISecurityService>();
+                IPrincipal p = null;
+                try {
+                    p = secSvc.GetPrincipal();
+                } catch (InvalidCredentialException) {
+                    MessageBox.Show(
+                        "Invalid username and/or password entered",
+                        "Invalid Credentials",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                } catch (AuthenticationException) {
+                    MessageBox.Show(
+                        "The security service has determined that you are not "
+                        + "authorized to use this application",
+                        "Not Authorized",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                if (p == null) {
+                    Shutdown(1);
+                } else {
+                    Thread.CurrentPrincipal = p;
+                    StartupContainer(container);
+                    base.OnStartup(e);
+                }
+            } catch (ResolutionFailedException ex) {
+                MessageBox.Show(
+                    "You do not have a security service mapped in the"
+                    + " application configuration file or there is an error"
+                    + " with its configuration.\n\n"
+                    + "Refer to the program documentation to configure"
+                    + "a unity type mapping.\n\n" + ex.Message,
+                    "No Security Service Defined",
+                    MessageBoxButton.OK, MessageBoxImage.Error
+                    );
+                Shutdown(1);
+            }
         }
 
-        /// <summary>
-        /// Tests if a user and password can be authorized.
-        /// </summary>
-        /// <remarks>
-        /// This is a dummy method used only for demonstration purposes.
-        /// </remarks>
-        /// <param name="user">Username.</param>
-        /// <param name="pass">Password.</param>
-        /// <returns>
-        /// <c>True</c> if user = "admin" and pass = "pass"
-        /// </returns>
-        private bool Authenticate(string user, string pass) {
-            return
-                "admin".Equals(user) &&
-                "pass".Equals(pass);
-        }
-
-        private void StartupContainer() {
+        private void StartupContainer(IUnityContainer container) {
             Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             LateNightSplash splash = new LateNightSplash();
             splash.DataContext = new LateNightSplashModel();
             splash.Show();
             Application.Current.MainWindow = null;
-
             Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
-            LateNightBootstrapper bootStrapper = new LateNightBootstrapper();
+
+            LateNightBootstrapper bootStrapper = new LateNightBootstrapper(container);
             bootStrapper.Run();
 
             splash.Close();

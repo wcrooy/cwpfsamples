@@ -30,13 +30,38 @@ namespace BrettRyan.LateNight {
     /// </summary>
     internal class LateNightBootstrapper : UnityBootstrapper {
 
+        private IUnityContainer container;
+
         /// <summary>
         /// Creates a new instance of <c>LateNightBootstrapper</c>.
         /// </summary>
         public LateNightBootstrapper() {
             App.Current.SessionEnding += new SessionEndingCancelEventHandler(DoSessionEnding);
             //App.Current.DispatcherUnhandledException +=
-            //    new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(DoUnhandledException);
+            //    new DispatcherUnhandledExceptionEventHandler(DoUnhandledException);
+        }
+
+        /// <summary>
+        /// Creates a new instance of <c>LateNightBootstrapper</c> with an
+        /// already created <see cref="IUnityContainer"/> instance.
+        /// </summary>
+        public LateNightBootstrapper(IUnityContainer container) : this() {
+            this.container = container;
+        }
+
+        /// <summary>
+        /// Returns the unity container for the application.
+        /// </summary>
+        /// <remarks>
+        /// This may have been passed in the constructor otherwise the
+        /// default implementation is used.
+        /// </remarks>
+        /// <returns>Application unity container.</returns>
+        protected override IUnityContainer CreateContainer() {
+            if (container == null) {
+                container = base.CreateContainer();
+            }
+            return container;
         }
 
         private void DoUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e) {
