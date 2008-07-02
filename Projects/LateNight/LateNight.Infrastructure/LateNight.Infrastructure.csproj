@@ -65,6 +65,8 @@
     <Compile Include="DocumentModel\IDocumentController.cs" />
     <Compile Include="ModelState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AbstractEntityMapperTranslator.cs" />
+    <Compile Include="Services\AbstractEntityTranslator.cs" />
     <Compile Include="Services\EntityNotFoundException.cs" />
     <Compile Include="Services\EntityTranslatorException.cs" />
     <Compile Include="Services\IEntityTranslator.cs" />
