@@ -86,10 +86,13 @@ namespace BrettRyan.LateNight {
         }
 
         private void RegisterServices() {
-            // This will register the type as a singleton instance.
+            // Register singleton services.
             Container.RegisterType<LateNightShellModel>(
                 new ContainerControlledLifetimeManager());
-            Container.RegisterType<IMessageService, BasicMessageService>();
+            Container.RegisterType<IEntityTranslatorService, EntityTranslatorService>(
+                new ContainerControlledLifetimeManager());
+            Container.RegisterType<IMessageService, BasicMessageService>(
+                new ContainerControlledLifetimeManager());
 
             // TODO: Create a new document manager that manages multiple
             //       document controller instances. I have an idea of using
