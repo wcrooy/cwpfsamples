@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:BrettRyan.LateNight"
         xmlns:mod="clr-namespace:Microsoft.Practices.Composite.Modularity;assembly=Microsoft.Practices.Composite"
         Title="About Late Night"
-        Width="500"
+        Width="550"
         SizeToContent="Height"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
@@ -83,12 +83,16 @@
                               IsEnabled="False"
                               IsChecked="{Binding Path=StartupLoaded, Mode=OneWay}"/>
 
-                    <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3"
+                    <GroupBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3"
+                              Header="Module Dependencies">
+                        <ListBox ItemsSource="{Binding DependsOn}"/>
+                    </GroupBox>
+                    <!--Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3"
                            FontWeight="Bold"
                            Content="Module Dependencies"/>
                     <ListBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="3"
-                             ItemsSource="{Binding DependsOn}"/>
-                    
+                             ItemsSource="{Binding DependsOn}"/-->
+
                 </Grid>
             </ScrollViewer>
         </DataTemplate>
@@ -152,7 +156,7 @@
         </Grid>
         
         <Label Content="Installed Modules:"/>
-        <ListBox Height="75" x:Name="xListModuleInfos"
+        <ListBox Height="100" x:Name="xListModuleInfos"
                  SelectionMode="Single"
                  SelectedItem="{Binding SelectedInfo}"
                  ItemsSource="{Binding ModuleInfos}"
@@ -166,7 +170,7 @@
         <Label Content="Module Details:"/>
         <Border x:Name="xBorderModuleInfo"
                 Margin="4,1,4,0">
-            <ContentControl Content="{Binding SelectedInfo}" Height="75"/>
+            <ContentControl Content="{Binding SelectedInfo}" Height="Auto" MaxHeight="120"/>
         </Border>
         
         <Expander Header="Full Copyright Text" IsExpanded="False">
