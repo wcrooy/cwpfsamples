@@ -34,16 +34,39 @@ using System.Text;
 namespace BrettRyan.LateNight.Services {
 
     /// <summary>
-    ///
+    /// Represents the base translator mapping service entities to
+    /// application domain entities.
     /// </summary>
     public abstract class AbstractEntityMapperTranslator<TBusinessEntity, TServiceEntity>
         : AbstractEntityTranslator {
 
+        /// <summary>
+        /// Returns true if the target type and source type match the generic
+        /// type definitions.
+        /// </summary>
+        /// <remarks>
+        /// Source and target types are reverse checked if they are not found
+        /// explicitly.
+        /// </remarks>
+        /// <param name="targetType">Target type.</param>
+        /// <param name="sourceType">Source type.</param>
+        /// <returns></returns>
         public override bool CanTranslate(Type targetType, Type sourceType) {
-            return (targetType == typeof(TBusinessEntity) && sourceType == typeof(TServiceEntity)) ||
-                (targetType == typeof(TServiceEntity) && sourceType == typeof(TBusinessEntity));
+            return
+                (targetType == typeof(TBusinessEntity)&&
+                sourceType == typeof(TServiceEntity))
+                ||
+                (targetType == typeof(TServiceEntity) &&
+                sourceType == typeof(TBusinessEntity));
         }
 
+        /// <summary>
+        /// Translates 
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="targetType"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
         public override object Translate(
             IEntityTranslatorService service, Type targetType, object source) {
             if (targetType == typeof(TBusinessEntity))
@@ -51,7 +74,8 @@ namespace BrettRyan.LateNight.Services {
             if (targetType == typeof(TServiceEntity))
                 return BusinessToService(service, (TBusinessEntity)source);
 
-            throw new EntityTranslatorException();
+            throw new EntityTranslatorException(
+                "Translator is not registered for target type: " + targetType.ToString());
         }
 
         protected abstract TServiceEntity BusinessToService(
