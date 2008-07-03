@@ -37,10 +37,41 @@ namespace BrettRyan.LateNight.Services {
     ///
     /// </summary>
     public interface IEntityTranslator {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="targetType"></param>
+        /// <param name="sourceType"></param>
+        /// <returns></returns>
         bool CanTranslate(Type targetType, Type sourceType);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TTarget"></typeparam>
+        /// <typeparam name="TSource"></typeparam>
+        /// <returns></returns>
         bool CanTranslate<TTarget, TSource>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="targetType"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
         object Translate(IEntityTranslatorService service, Type targetType, object source);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TTarget"></typeparam>
+        /// <param name="service"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
         TTarget Translate<TTarget>(IEntityTranslatorService service, object source);
+
     }
 
 }
