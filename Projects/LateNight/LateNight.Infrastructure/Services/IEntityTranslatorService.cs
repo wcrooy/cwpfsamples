@@ -34,7 +34,7 @@ using System.Text;
 namespace BrettRyan.LateNight.Services {
 
     /// <summary>
-    ///
+    /// Service to manage <see cref="IEntityTranslator"/> instances.
     /// </summary>
     public interface IEntityTranslatorService {
 

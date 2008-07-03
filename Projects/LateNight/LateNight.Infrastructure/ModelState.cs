@@ -16,7 +16,7 @@ using System.Text;
 namespace BrettRyan.LateNight {
 
     /// <summary>
-    ///
+    /// State that a model is in.
     /// </summary>
     /// <remarks>
     /// This is based on the DataModel-View-ViewModel sample by Dan Crevier

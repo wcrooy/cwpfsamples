@@ -34,13 +34,34 @@ using System.Text;
 namespace BrettRyan.LateNight.Services {
 
     /// <summary>
-    ///
+    /// Exception thrown by <see cref="IEntityTranslator"/> implementations.
     /// </summary>
     [Serializable]
     public class EntityTranslatorException : Exception {
+
+        /// <summary>
+        /// Creates a new instance of <c>EntityTranslatorException</c>.
+        /// </summary>
         public EntityTranslatorException() : base() { }
+
+        /// <summary>
+        /// Creates a new instance of <c>EntityTranslatorException</c> with a
+        /// given reason..
+        /// </summary>
+        /// <param name="message">Reason for the exception.</param>
         public EntityTranslatorException(string message) : base(message) { }
-        public EntityTranslatorException(string message, Exception innerException) : base(message, innerException) { }
+
+        /// <summary>
+        /// Creates a new instance of <c>EntityTranslatorException</c> with a.
+        /// given reason and originating cause.
+        /// </summary>
+        /// <param name="message">Reason for the exception.</param>
+        /// <param name="innerException">Parent cause.</param>
+        public EntityTranslatorException(
+            string message,
+            Exception innerException)
+            : base(message, innerException) { }
+
     }
 
 }

@@ -26,12 +26,32 @@ namespace BrettRyan.LateNight.Services {
     /// </remarks>
     public interface IMessageService {
 
+        /// <summary>
+        /// Show a message to the user.
+        /// </summary>
+        /// <param name="message">Message to show.</param>
         void ShowMessage(string message);
 
+        /// <summary>
+        /// Show a message to the user.
+        /// </summary>
+        /// <param name="message">Message to show.</param>
+        /// <param name="caption">Caption for the message window.</param>
         void ShowMessage(string message, string caption);
 
+        /// <summary>
+        /// Show a message to the user.
+        /// </summary>
+        /// <param name="message">Message to show.</param>
+        /// <param name="icon">Icon for the window.</param>
         void ShowMessage(string message, MessageBoxImage icon);
 
+        /// <summary>
+        /// Show a message to the user.
+        /// </summary>
+        /// <param name="message">Message to show.</param>
+        /// <param name="caption">Caption for the message window.</param>
+        /// <param name="icon">Icon for the window.</param>
         void ShowMessage(
             string message,
             string caption,
