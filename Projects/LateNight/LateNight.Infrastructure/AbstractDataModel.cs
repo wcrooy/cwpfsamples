@@ -19,7 +19,7 @@ using System.Windows.Threading;
 namespace BrettRyan.LateNight {
 
     /// <summary>
-    ///
+    /// Base abstract model implementation.
     /// </summary>
     /// <remarks>
     /// This is based on the DataModel-View-ViewModel sample by Dan Crevier
@@ -35,14 +35,21 @@ namespace BrettRyan.LateNight {
         public AbstractDataModel() {
             Dispatcher = Dispatcher.CurrentDispatcher;
             VerifyCalledOnUIThread();
-            
         }
 
+        /// <summary>
+        /// <see cref="System.Windows.Threading.Dispatcher"/> this model was
+        /// created on.
+        /// </summary>
         protected Dispatcher Dispatcher {
             get;
             private set;
         }
 
+        /// <summary>
+        /// State of the data mode.
+        /// </summary>
+        /// <seealso cref="BrettRyan.LateNight.ModelState"/>
         public ModelState State {
             get {
                 VerifyCalledOnUIThread();
@@ -57,6 +64,13 @@ namespace BrettRyan.LateNight {
             }
         }
 
+        /// <summary>
+        /// Verifies that the call is not on the UI thread.
+        /// </summary>
+        /// <remarks>
+        /// This simply checks that the process is executing on the thread
+        /// that the model was created on.
+        /// </remarks>
         [Conditional("DEBUG")]
         protected void VerifyCalledOnUIThread() {
             Debug.Assert(Dispatcher.CurrentDispatcher == this.Dispatcher,
@@ -149,6 +163,10 @@ namespace BrettRyan.LateNight {
 
         private event PropertyChangedEventHandler propertyChangedEvent;
 
+        /// <summary>
+        /// Fired whenever the model determines that a state property has
+        /// been altered.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged {
             add {
                 VerifyCalledOnUIThread();
@@ -160,6 +178,11 @@ namespace BrettRyan.LateNight {
             }
         }
 
+        /// <summary>
+        /// Fires the <see cref="PropertyChanged"/> event.
+        /// </summary>
+        /// <param name="prop">Property to fire a changed event for.</param>
+        /// <seealso cref="System.ComponentModel.INotifyPropertyChanged"/>
         protected void OnPropertyChanged(string prop) {
             VerifyCalledOnUIThread();
             if (propertyChangedEvent != null)

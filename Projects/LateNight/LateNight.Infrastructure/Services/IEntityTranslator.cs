@@ -34,43 +34,71 @@ using System.Text;
 namespace BrettRyan.LateNight.Services {
 
     /// <summary>
-    ///
+    /// Entity translator contract to be consumed by
+    /// <see cref="IEntityTranslatorService"/> implementations.
     /// </summary>
     public interface IEntityTranslator {
 
         /// <summary>
-        /// 
+        /// Determines if the source and target types can be translated.
         /// </summary>
-        /// <param name="targetType"></param>
-        /// <param name="sourceType"></param>
-        /// <returns></returns>
+        /// <param name="targetType">Target type.</param>
+        /// <param name="sourceType">Source type.</param>
+        /// <returns>
+        /// True if the source and target types can be translated between
+        /// each other.
+        /// </returns>
         bool CanTranslate(Type targetType, Type sourceType);
 
         /// <summary>
-        /// 
+        /// Determines if the source and target types can be translated.
         /// </summary>
-        /// <typeparam name="TTarget"></typeparam>
-        /// <typeparam name="TSource"></typeparam>
-        /// <returns></returns>
+        /// <typeparam name="TTarget">Target type.</typeparam>
+        /// <typeparam name="TSource">Source type.</typeparam>
+        /// <returns>
+        /// True if the source and target types can be translated between
+        /// each other.
+        /// </returns>
         bool CanTranslate<TTarget, TSource>();
 
         /// <summary>
-        /// 
+        /// Performs translation of a target type from a source type.
         /// </summary>
-        /// <param name="service"></param>
-        /// <param name="targetType"></param>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        object Translate(IEntityTranslatorService service, Type targetType, object source);
+        /// <param name="service">
+        /// Service this translator is registered in.
+        /// </param>
+        /// <param name="targetType">
+        /// Type to translate to.
+        /// </param>
+        /// <param name="source">
+        /// Object to be translated.
+        /// </param>
+        /// <returns>
+        /// Resulting object translated to a type of <c>targetType</c>.
+        /// </returns>
+        object Translate(
+            IEntityTranslatorService service,
+            Type targetType,
+            object source);
 
         /// <summary>
-        /// 
+        /// Performs translation of a target type from a source type.
         /// </summary>
-        /// <typeparam name="TTarget"></typeparam>
-        /// <param name="service"></param>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        TTarget Translate<TTarget>(IEntityTranslatorService service, object source);
+        /// <typeparam name="TTarget">
+        /// Type to translate to.
+        /// </typeparam>
+        /// <param name="service">
+        /// Service this translator is registered in.
+        /// </param>
+        /// <param name="source">
+        /// Object to be translated.
+        /// </param>
+        /// <returns>
+        /// Resulting object translated to a type of <c>TTarget</c>.
+        /// </returns>
+        TTarget Translate<TTarget>(
+            IEntityTranslatorService service,
+            object source);
 
     }
 

@@ -51,19 +51,33 @@ namespace BrettRyan.LateNight.DocumentModel {
         /// </summary>
         public event EventHandler<DataEventArgs<AbstractDocument>> DocumentOpened;
 
-
+        /// <summary>
+        /// Raises the <see cref="DocumentClosing"/> event.
+        /// </summary>
+        /// <param name="sender">Calling object</param>
+        /// <param name="args">Event arguments.</param>
         protected void OnDocumentClosing(object sender, DocumentClosingEventArgs args) {
             if (DocumentClosing != null) {
                 DocumentClosing(sender, args);
             }
         }
 
+        /// <summary>
+        /// Raises the <see cref="DocumentClosed"/> event.
+        /// </summary>
+        /// <param name="sender">Calling object</param>
+        /// <param name="args">Event arguments.</param>
         protected void OnDocumentClosed(object sender, DataEventArgs<AbstractDocument> args) {
             if (DocumentClosed != null) {
                 DocumentClosed(sender, args);
             }
         }
 
+        /// <summary>
+        /// Raises the <see cref="DocumentOpened"/> event.
+        /// </summary>
+        /// <param name="sender">Calling object</param>
+        /// <param name="args">Event arguments.</param>
         protected void OnDocumentOpened(object sender, DataEventArgs<AbstractDocument> args) {
             if (DocumentOpened != null) {
                 DocumentOpened(sender, args);

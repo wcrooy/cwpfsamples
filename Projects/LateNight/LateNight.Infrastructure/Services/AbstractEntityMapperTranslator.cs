@@ -61,12 +61,14 @@ namespace BrettRyan.LateNight.Services {
         }
 
         /// <summary>
-        /// Translates 
+        /// Perform object translation.
         /// </summary>
-        /// <param name="service"></param>
-        /// <param name="targetType"></param>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="service">Parent service.</param>
+        /// <param name="targetType">Target type.</param>
+        /// <param name="source">Source object.</param>
+        /// <returns>
+        /// Object with entity translation performed.
+        /// </returns>
         public override object Translate(
             IEntityTranslatorService service, Type targetType, object source) {
             if (targetType == typeof(TBusinessEntity))
@@ -78,9 +80,21 @@ namespace BrettRyan.LateNight.Services {
                 "Translator is not registered for target type: " + targetType.ToString());
         }
 
+        /// <summary>
+        /// Translates a business object to a service object.
+        /// </summary>
+        /// <param name="service">Service containing this translator.</param>
+        /// <param name="value">Business object to translate.</param>
+        /// <returns>Resulting service object.</returns>
         protected abstract TServiceEntity BusinessToService(
             IEntityTranslatorService service, TBusinessEntity value);
 
+        /// <summary>
+        /// Translates a service object to a business object.
+        /// </summary>
+        /// <param name="service">Service containing this translator.</param>
+        /// <param name="value">Service object to translate.</param>
+        /// <returns>Resulting business object.</returns>
         protected abstract TBusinessEntity ServiceToBusiness(
             IEntityTranslatorService service, TServiceEntity value);
 

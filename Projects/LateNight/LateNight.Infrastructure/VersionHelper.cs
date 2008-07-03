@@ -22,6 +22,9 @@ namespace BrettRyan.LateNight {
     /// </summary>
     public static class VersionHelper {
 
+        /// <summary>
+        /// Text to append to <see cref="AssemblyVersion"/> result.
+        /// </summary>
         public static string DebugSuffix {
             get;
             set;
@@ -31,6 +34,9 @@ namespace BrettRyan.LateNight {
             DebugSuffix = String.Empty;
         }
 
+        /// <summary>
+        /// Returns the version of the calling code.
+        /// </summary>
         public static Version Version {
             get {
                 if (Assembly.GetEntryAssembly() == null) return null;
