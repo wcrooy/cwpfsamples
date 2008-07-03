@@ -95,7 +95,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonModel.cs" />
-    <Compile Include="DocumentModel\DocumentController.cs" />
     <Compile Include="LateNightAboutModel.cs" />
     <Compile Include="LateNightAboutView.xaml.cs">
       <DependentUpon>LateNightAboutView.xaml</DependentUpon>
@@ -164,6 +163,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DocumentModel\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

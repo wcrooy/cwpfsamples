@@ -62,6 +62,7 @@
     <Compile Include="Constants\ControllerNames.cs" />
     <Compile Include="DocumentModel\AbstractDocument.cs" />
     <Compile Include="DocumentModel\DocumentClosingEventArgs.cs" />
+    <Compile Include="DocumentModel\DocumentController.cs" />
     <Compile Include="DocumentModel\IDocumentController.cs" />
     <Compile Include="ModelState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
