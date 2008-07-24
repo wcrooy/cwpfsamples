@@ -19,19 +19,31 @@ using System.Windows;
 namespace BrettRyan.LateNight.Services {
 
     /// <summary>
-    ///
+    /// A simple <see cref="ISecurityService"/> implementation.
     /// </summary>
     public class SimpleSecurityService : ISecurityService {
 
         private IPrincipal principal;
         private IUserProvider userProvider;
 
+        /// <summary>
+        /// Creates a new <c>SimpleSecurityService</c> instance.
+        /// </summary>
+        /// <param name="userProvider">
+        /// Provider to perform authentication and return user roles for
+        /// users.
+        /// </param>
         public SimpleSecurityService(IUserProvider userProvider) {
             this.userProvider = userProvider;
         }
 
+
         #region ISecurityService Members
 
+        /// <summary>
+        /// Presents a logon screen which accepts a username/password.
+        /// </summary>
+        /// <returns></returns>
         public IPrincipal GetPrincipal() {
             if (principal != null) {
                 return principal;
