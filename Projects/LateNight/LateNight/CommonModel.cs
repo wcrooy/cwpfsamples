@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 
@@ -22,6 +23,14 @@ namespace BrettRyan.LateNight {
 
         private static string versionText;
 
+        /// <summary>
+        /// Returns the version number as a text string with a build of the
+        /// build time.
+        /// </summary>
+        /// <remarks>
+        /// The build must have been configured as the M.m.*.* pattern where
+        /// M = major and m = minor revision numbers.
+        /// </remarks>
         public static string VersionTextAsDateTime {
             get {
                 if (versionText == null) {
@@ -38,24 +47,38 @@ namespace BrettRyan.LateNight {
             }
         }
 
+        /// <summary>
+        /// Returns the <see cref="VersionHelper.AssemblyMajorVersion"/>
+        /// result.
+        /// </summary>
         public static string MajorVersion {
             get { return VersionHelper.AssemblyMajorVersion; }
         }
 
+        /// <summary>
+        /// Returns the runtime framework version.
+        /// </summary>
+        /// <seealso cref="RuntimeEnvironment.GetSystemVersion"/>
         public static string FrameworkVersion {
             get {
-                return System.Runtime.InteropServices
-                    .RuntimeEnvironment.GetSystemVersion().ToString();
+                return RuntimeEnvironment.GetSystemVersion().ToString();
             }
         }
 
+        /// <summary>
+        /// Returns the current runtime environments directory.
+        /// </summary>
+        /// <seealso cref="RuntimeEnvironment.GetRuntimeDirectory"/>
         public static string FrameworkDirectory {
             get {
-                return System.Runtime.InteropServices
-                    .RuntimeEnvironment.GetRuntimeDirectory();
+                return RuntimeEnvironment.GetRuntimeDirectory();
             }
         }
 
+        /// <summary>
+        /// Returns the full version number for this appliction.
+        /// </summary>
+        /// <seealso cref="VersionHelper.AssemblyVersion"/>
         public static string FullVersionNumber {
             get {
                 return VersionHelper.AssemblyVersion;
